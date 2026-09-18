@@ -5,6 +5,12 @@ project(liqelligence LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include("$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+find_package(OpenGL REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(GLEW CONFIG REQUIRED)
+
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
@@ -35,4 +41,15 @@ endif()
 
 add_executable(${PROJECT_NAME} ${PROJECT_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_include_directories(${PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    GLEW::glew
+    glm::glm
+    glfw
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    GLEW::glew
+    glm::glm
+    glfw
+)
