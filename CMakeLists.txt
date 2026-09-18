@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.20)
+
+project(liqelligence LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(MSVC)
+    set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+endif()
+
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp"
+)
+
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+)
+
+file(GLOB_RECURSE DOCS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/docs/*"
+)
+
+set(PROJECT_FILES
+    ${HEADERS}
+    ${SOURCES}
+    ${DOCS}
+)
+
+source_group(
+    TREE "${CMAKE_CURRENT_SOURCE_DIR}"
+    FILES ${PROJECT_FILES}
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
+
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+target_sources(${PROJECT_NAME} PRIVATE ${DOCS})
