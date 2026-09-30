@@ -111,6 +111,25 @@ target_link_libraries(${PROJECT_NAME}_test PRIVATE
 include(Catch)
 catch_discover_tests(${PROJECT_NAME}_test)
 
+set(RESOURCES_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/res")
+set(RESOURCES_OUTPUT "${CMAKE_BINARY_DIR}/res")
+
+file(GLOB_RECURSE RESOURCES CONFIGURE_DEPENDS
+    "${RESOURCES_INPUT}/*"
+)
+
+source_group(
+    TREE "${CMAKE_CURRENT_SOURCE_DIR}"
+    FILES ${RESOURCES}
+)
+
+add_custom_target(${PROJECT_NAME}_res
+	ALL
+	COMMAND ${CMAKE_COMMAND} -E make_directory "${RESOURCES_OUTPUT}"
+	COMMAND ${CMAKE_COMMAND} -E copy_directory "${RESOURCES_INPUT}" "${RESOURCES_OUTPUT}"
+	SOURCES ${RESOURCES}
+)
+
 file(GLOB_RECURSE DOCS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/docs/*"
 )
