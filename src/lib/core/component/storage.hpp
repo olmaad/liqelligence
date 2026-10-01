@@ -11,7 +11,6 @@ namespace liqelligence::core::component
     {
     public:
         static storage& get();
-
         void reset();
 
         template<typename t_component, typename ...t_args>

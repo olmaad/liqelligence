@@ -1,5 +1,6 @@
 #include "window.hpp"
 
+#include <gl/glew.h>
 #include <GLFW/glfw3.h>
 
 namespace liqelligence::core::gl
@@ -10,6 +11,7 @@ namespace liqelligence::core::gl
 
         if (_handle) {
             glfwMakeContextCurrent(_handle);
+            glewInit();
 
             glEnable(GL_DEPTH_TEST);
             glClearColor(0.078f, 0.090f, 0.095f, 0.f);
