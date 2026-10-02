@@ -49,4 +49,9 @@ namespace liqelligence::core::component
         }
 
     };
+
+    template<typename t> struct is_interface_adapter_type : std::false_type {};
+    template<typename... t_args> struct is_interface_adapter_type<interface_adapter<t_args...>> : std::true_type {};
+    template<typename t_adapter> concept interface_adapter_type = is_interface_adapter_type<t_adapter>::value;
+
 }

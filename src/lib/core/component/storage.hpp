@@ -1,5 +1,6 @@
 #pragma once
 
+#include <core/component/interface_adapter.hpp>
 #include <core/component/component.hpp>
 #include <core/component/bucket.hpp>
 #include <generator>
@@ -64,7 +65,7 @@ namespace liqelligence::core::component
             return {};
         }
 
-        template<typename t_adapter>
+        template<interface_adapter_type t_adapter>
         std::generator<typename t_adapter::interface_type&> get_all() const
         {
             return t_adapter().get_all(*this);
