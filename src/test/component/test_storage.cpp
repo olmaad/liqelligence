@@ -3,37 +3,42 @@
 #include <component/components.hpp>
 #include <core/component/storage.hpp>
 
-namespace liqelligence::test
+namespace
 {
+    using namespace liqelligence;
+
     core::component::storage create_test_storage() {
         auto storage = core::component::storage();
 
         for (int it = 0; it < 4; ++it) {
-            storage.add<simple_component>();
+            storage.add<test::simple_component>();
         }
 
         for (int it = 0; it < 10; ++it) {
-            storage.add<component_a>(1 + it, 'a' + it);
+            storage.add<test::component_a>(1 + it, 'a' + it);
         }
 
-        storage.add<component_b>();
-        storage.add<component_b>(98, 'g');
+        storage.add<test::component_b>();
+        storage.add<test::component_b>(98, 'g');
 
         for (int it = 0; it < 5; ++it) {
-            storage.add<simple_templated_component<int>>();
+            storage.add<test::simple_templated_component<int>>();
         }
 
         for (int it = 0; it < 10; ++it) {
-            storage.add<simple_templated_component<char>>();
+            storage.add<test::simple_templated_component<char>>();
         }
 
         for (int it = 0; it < 15; ++it) {
-            storage.add<templated_component<int>>(it);
+            storage.add<test::templated_component<int>>(it);
         }
 
         return storage;
     }
+}
 
+namespace liqelligence::test
+{
     TEST_CASE("Component storage add", "[component][storage]")
     {
         const auto storage = create_test_storage();

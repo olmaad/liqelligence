@@ -6,7 +6,7 @@ namespace liqelligence::core::component
 
     namespace detail
     {
-        static component_type_t type_count = 1u;
+        extern component_type_t type_count;
         constexpr component_type_t type_count_max = 128u;
     }
 

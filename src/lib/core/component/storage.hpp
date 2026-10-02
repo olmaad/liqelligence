@@ -2,6 +2,7 @@
 
 #include <core/component/component.hpp>
 #include <core/component/bucket.hpp>
+#include <generator>
 #include <memory>
 #include <array>
 
@@ -13,14 +14,14 @@ namespace liqelligence::core::component
         static storage& get();
         void reset();
 
-        template<typename t_component, typename ...t_args>
+        template<std::derived_from<component> t_component, typename ...t_args>
         t_component& add(t_args&&... args)
         {
             auto& bucket = get_bucket_for<t_component>();
-            return bucket.add(args...);
+            return bucket.add(std::forward<t_args>(args)...);
         }
 
-        template<typename t_component>
+        template<std::derived_from<component> t_component>
         t_component* find(component_ref ref) const
         {
             if (!ref) {
@@ -45,7 +46,7 @@ namespace liqelligence::core::component
             }
         }
 
-        template<typename t_component>
+        template<std::derived_from<component> t_component>
         void remove(const t_component& it)
         {
             if (auto* bucket = find_bucket_for<t_component>()) {
@@ -53,7 +54,7 @@ namespace liqelligence::core::component
             }
         }
 
-        template<typename t_component>
+        template<std::derived_from<component> t_component>
         range<t_component> get_all() const
         {
             if (auto* bucket = find_bucket_for<t_component>()) {
@@ -63,7 +64,13 @@ namespace liqelligence::core::component
             return {};
         }
 
-        template<typename t_component>
+        template<typename t_adapter>
+        std::generator<typename t_adapter::interface_type&> get_all() const
+        {
+            return t_adapter().get_all(*this);
+        }
+
+        template<std::derived_from<component> t_component>
         void remove_all()
         {
             const auto type = component_type<t_component>();

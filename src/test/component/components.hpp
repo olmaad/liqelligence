@@ -1,5 +1,7 @@
 #pragma once
 
+#include <core/component/interface/update_component.hpp>
+#include <core/component/interface/draw_component.hpp>
 #include <core/component/component.hpp>
 
 namespace liqelligence::test
@@ -10,6 +12,37 @@ namespace liqelligence::test
 
     class non_existing_component : public core::component::component
     {
+    };
+
+    class draw_component_a : public core::component::component, public core::component::i_draw_component
+    {
+    public:
+        void draw() const override {}
+
+    };
+
+    class draw_component_b : public core::component::component, public core::component::i_draw_component
+    {
+    public:
+        void draw() const override {}
+    };
+
+    class update_component_a : public core::component::component, public core::component::i_update_component
+    {
+    public:
+        void update(float dt) override { ++update_count; };
+
+    public:
+        uint32_t update_count = 0u;
+    };
+
+    class update_component_b : public core::component::component, public core::component::i_update_component
+    {
+    public:
+        void update(float dt) override { ++update_count; };
+
+    public:
+        uint32_t update_count = 0u;
     };
 
     class component_a : public core::component::component

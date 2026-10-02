@@ -22,7 +22,7 @@ namespace liqelligence::core::component
         t_component& add(t_args&&... args)
         {
             const auto index = _components.size();
-            auto& added = _components.emplace_back(args...);
+            auto& added = _components.emplace_back(std::forward<t_args>(args)...);
 
             auto& added_ref = added._ref;
             added_ref.set_type(get_type_of<t_component>());
