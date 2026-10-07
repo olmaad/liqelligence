@@ -3,6 +3,7 @@
     "catch2",
     "glew",
     "glfw3",
-    "glm"
+    "glm",
+    "lodepng"
   ]
 }

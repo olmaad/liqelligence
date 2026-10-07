@@ -3,6 +3,8 @@
 #include <core/resource/types/sprite.hpp>
 #include <core/resource/loading/data_loader.hpp>
 #include <core/resource/library/sprite_library.hpp>
+#include <core/math/types.hpp>
+#include <lodepng.h>
 
 namespace liqelligence::core::resource
 {
@@ -24,7 +26,19 @@ namespace liqelligence::core::resource
 
         auto data = _loader->read_data(_path);
 
-        auto resource = std::make_shared<sprite>(std::move(data));
+        lodepng::State state;
+        state.decoder.ignore_crc = true;
+
+        uvector2d size{ 0u, 0u };
+        std::vector<uint8_t> decoded;
+
+        const auto result = lodepng::decode(decoded, size.x, size.y, state, data);
+        if (result) {
+            //auto error = lodepng_error_text(result);
+            return;
+        }
+
+        auto resource = std::make_shared<sprite>(size, std::move(decoded));
         if (!resource->valid()) {
             return;
         }

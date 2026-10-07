@@ -12,6 +12,7 @@ find_package(OpenGL REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW CONFIG REQUIRED)
+find_package(lodepng CONFIG REQUIRED)
 find_package(Catch2 3 CONFIG REQUIRED)
 
 file(GLOB_RECURSE LIB_HEADERS CONFIGURE_DEPENDS
@@ -40,12 +41,14 @@ target_include_directories(${PROJECT_NAME}_lib PRIVATE
     GLEW::glew
     glm::glm
     glfw
+    lodepng
 )
 
 target_link_libraries(${PROJECT_NAME}_lib PRIVATE
     GLEW::glew
     glm::glm
     glfw
+    lodepng
 )
 
 file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS
@@ -125,6 +128,7 @@ source_group(
 
 add_custom_target(${PROJECT_NAME}_res
 	ALL
+    COMMAND ${CMAKE_COMMAND} -E rm -rf "${RESOURCES_OUTPUT}"
 	COMMAND ${CMAKE_COMMAND} -E make_directory "${RESOURCES_OUTPUT}"
 	COMMAND ${CMAKE_COMMAND} -E copy_directory "${RESOURCES_INPUT}" "${RESOURCES_OUTPUT}"
 	SOURCES ${RESOURCES}
