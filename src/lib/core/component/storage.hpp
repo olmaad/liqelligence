@@ -66,7 +66,7 @@ namespace liqelligence::core::component
         }
 
         template<interface_adapter_type t_adapter>
-        std::generator<typename t_adapter::interface_type&> get_all() const
+        auto get_all() const
         {
             return t_adapter().get_all(*this);
         }

@@ -27,9 +27,6 @@ namespace liqelligence::core::component
         static_assert(std::derived_from<t_component, t_interface>, "t_component must be derived from t_interface");
 
     public:
-        using interface_type = t_interface;
-
-    public:
         interface_adapter()
         {
         }
