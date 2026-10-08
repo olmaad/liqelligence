@@ -111,4 +111,15 @@ namespace liqelligence::test
     public:
         t_arg a;
     };
+
+    class not_component_a
+    {
+    };
+
+    class not_component_b : public core::component::i_draw_component
+    {
+    public:
+        void draw() const override {}
+
+    };
 }
