@@ -17,6 +17,8 @@ namespace liqelligence::core::component
     template<typename t_component>
     class bucket : public generic_bucket
     {
+        static_assert(component_type<t_component>, "t_component must be component type");
+
     public:
         template<typename ...t_args>
         t_component& add(t_args&&... args)
@@ -39,7 +41,7 @@ namespace liqelligence::core::component
 
         t_component* find(component_ref ref)
         {
-            if (!ref || ref.get_type() != component_type<t_component>() || ref.get_id() >= _components_index.size()) {
+            if (!ref || ref.get_type() != get_type_of<t_component>() || ref.get_id() >= _components_index.size()) {
                 return {};
             }
 

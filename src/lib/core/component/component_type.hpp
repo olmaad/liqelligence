@@ -1,7 +1,11 @@
 #pragma once
 
+#include <concepts>
+
 namespace liqelligence::core::component
 {
+    class component;
+
     using component_type_t = size_t;
 
     namespace detail
@@ -18,20 +22,6 @@ namespace liqelligence::core::component
     }
 
     template<typename t_component>
-    class component_type
-    {
-    public:
-        component_type()
-            : _id(get_type_of<t_component>())
-        {
-        }
-
-        operator component_type_t() const
-        {
-            return _id;
-        }
-
-    private:
-        const component_type_t _id;
-    };
+    concept component_type = std::derived_from<t_component, component>
+        && std::swappable<t_component>;
 }
