@@ -30,7 +30,7 @@ namespace liqelligence::prototype
 
             const auto sprite_ref = sprite.get_ref();
 
-            auto& move = storage.add<game::move_component>(sprite_ref, static_cast<float>(it) / 8.f * std::numbers::pi * 2.f);
+            auto& move = storage.add<game::move_component>(sprite_ref, static_cast<float>(it) / 8.f * static_cast<float>(std::numbers::pi) * 2.f);
         }
     }
 
