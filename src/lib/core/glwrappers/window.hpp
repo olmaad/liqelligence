@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 class GLFWwindow;
 
 namespace liqelligence::core::gl
@@ -14,7 +16,7 @@ namespace liqelligence::core::gl
         bool valid() const;
         bool need_close() const;
 
-        void draw();
+        void draw(std::function<void()> delegate);
         void process();
 
     private:

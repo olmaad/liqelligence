@@ -2,7 +2,7 @@
 
 #include <array>
 
-namespace liqelligence::core::gl
+namespace liqelligence::core::resource
 {
     shader::shader(std::vector<uint8_t>&& fragment_code, std::vector<uint8_t>&& vertex_code)
     {
@@ -28,6 +28,33 @@ namespace liqelligence::core::gl
         }
 
         return false;
+    }
+
+    GLuint shader::get_handle() const
+    {
+        return _handle;
+    }
+
+    void shader::bind() const
+    {
+        if (_handle) {
+            glUseProgram(_handle);
+        }
+    }
+
+    void shader::unbind() const
+    {
+        if (_handle) {
+            glUseProgram(0u);
+        }
+    }
+
+    void shader::set_uniform(std::string_view name, vector2d value) const
+    {
+        const auto uniform = glGetUniformLocation(_handle, name.data());
+        if (uniform >= 0) {
+            glUniform2f(uniform, value.x, value.y);
+        }
     }
 
     GLuint shader::create_program(const std::vector<uint8_t>& fragment_code, const std::vector<uint8_t>& vertex_code)
@@ -66,10 +93,10 @@ namespace liqelligence::core::gl
             return {};
         }
 
-        std::array<const GLchar*, 1> source_code{ reinterpret_cast<const GLchar*>(code.data()) };
-        std::array<const GLint, 1> source_size{ static_cast<GLint>(code.size()) };
+        auto source_code = reinterpret_cast<const GLchar*>(code.data());
+        auto source_size = static_cast<GLint>(code.size());
 
-        glShaderSource(handle, 1, source_code.data(), source_size.data());
+        glShaderSource(handle, 1, &source_code, &source_size);
         glCompileShader(handle);
 
         GLint compile_result = GL_FALSE;

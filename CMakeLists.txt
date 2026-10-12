@@ -73,11 +73,14 @@ source_group(
 add_executable(${PROJECT_NAME}_game ${GAME_FILES})
 
 target_include_directories(${PROJECT_NAME}_game PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/game"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/lib"
+    glm::glm
 )
 
 target_link_libraries(${PROJECT_NAME}_game PRIVATE
     ${PROJECT_NAME}_lib
+    glm::glm
 )
 
 file(GLOB_RECURSE TEST_HEADERS CONFIGURE_DEPENDS
@@ -133,6 +136,8 @@ add_custom_target(${PROJECT_NAME}_res
 	COMMAND ${CMAKE_COMMAND} -E copy_directory "${RESOURCES_INPUT}" "${RESOURCES_OUTPUT}"
 	SOURCES ${RESOURCES}
 )
+
+add_dependencies(${PROJECT_NAME}_game ${PROJECT_NAME}_res)
 
 file(GLOB_RECURSE DOCS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/docs/*"

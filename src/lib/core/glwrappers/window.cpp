@@ -11,10 +11,19 @@ namespace liqelligence::core::gl
 
         if (_handle) {
             glfwMakeContextCurrent(_handle);
+            //glfwSwapInterval(0);
             glewInit();
 
-            glEnable(GL_DEPTH_TEST);
-            glClearColor(0.078f, 0.090f, 0.095f, 0.f);
+            glClearColor(1.f, 0.f, 0.f, 1.f);
+
+            glEnable(GL_BLEND);
+            glBlendEquation(GL_FUNC_ADD);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+            //glEnable(GL_STENCIL_TEST);
+            //glStencilMask(0xFF);
+            //glStencilFunc(GL_EQUAL, 0, 0xFF);
+            //glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
         }
     }
 
@@ -33,13 +42,17 @@ namespace liqelligence::core::gl
         return !valid() || glfwWindowShouldClose(_handle);
     }
 
-    void window::draw()
+    void window::draw(std::function<void()> delegate)
     {
         if (!valid()) {
             return;
         }
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+        if (delegate) {
+            delegate();
+        }
 
         glfwSwapBuffers(_handle);
     }

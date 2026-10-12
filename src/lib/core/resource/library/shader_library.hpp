@@ -2,14 +2,11 @@
 
 #include <core/resource/library/library.hpp>
 
-namespace liqelligence::core::gl
-{
-    class shader;
-}
-
 namespace liqelligence::core::resource
 {
-    class shader_library : public resource_library<gl::shader>
+    class shader;
+
+    class shader_library : public resource_library<shader>
     {
     public:
         ~shader_library() noexcept override = default;

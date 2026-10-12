@@ -1,9 +1,11 @@
 #pragma once
 
 #include <gl/glew.h>
+#include <core/math/types.hpp>
 #include <vector>
+#include <string>
 
-namespace liqelligence::core::gl
+namespace liqelligence::core::resource
 {
     class shader
     {
@@ -19,6 +21,12 @@ namespace liqelligence::core::gl
         ~shader();
 
         bool valid() const;
+        GLuint get_handle() const;
+
+        void bind() const;
+        void unbind() const;
+
+        void set_uniform(std::string_view name, vector2d value) const;
 
     private:
         GLuint create_program(const std::vector<uint8_t>& fragment_code, const std::vector<uint8_t>& vertex_code);

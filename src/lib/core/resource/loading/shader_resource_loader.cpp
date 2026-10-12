@@ -1,6 +1,6 @@
 #include "shader_resource_loader.hpp"
 
-#include <core/glwrappers/shader.hpp>
+#include <core/resource/types/shader.hpp>
 #include <core/resource/loading/data_loader.hpp>
 #include <core/resource/library/shader_library.hpp>
 
@@ -27,7 +27,7 @@ namespace liqelligence::core::resource
         auto fragment_data = _loader->read_data(paths.fragment);
         auto vertex_data = _loader->read_data(paths.vertex);
 
-        auto resource = std::make_shared<gl::shader>(std::move(fragment_data), std::move(vertex_data));
+        auto resource = std::make_shared<shader>(std::move(fragment_data), std::move(vertex_data));
         if (!resource->valid()) {
             return;
         }

@@ -3,6 +3,24 @@
 #include <component/components.hpp>
 #include <core/component/storage.hpp>
 #include <core/component/interface_adapter.hpp>
+#include <core/draw/bindable.hpp>
+
+namespace
+{
+    using namespace liqelligence;
+
+    class bindable
+    {
+    public:
+        void bind() const {}
+        void unbind() const {}
+
+    };
+
+    class not_bindable
+    {
+    };
+}
 
 namespace liqelligence::test
 {
@@ -30,6 +48,13 @@ namespace liqelligence::test
             REQUIRE(!core::component::interface_adapter_type<core::component::range<simple_component>>);
             REQUIRE(!core::component::interface_adapter_type<core::component::interface_adapter<simple_component>>);
             REQUIRE(!core::component::interface_adapter_type<core::component::interface_adapter<core::component::i_draw_component>>);
+        }
+
+        SECTION("Bindable type")
+        {
+            REQUIRE(core::draw::bindable_type<bindable>);
+
+            REQUIRE(!core::draw::bindable_type<not_bindable>);
         }
     }
 }

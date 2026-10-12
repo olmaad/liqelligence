@@ -28,6 +28,8 @@ namespace liqelligence::core::resource
 
         lodepng::State state;
         state.decoder.ignore_crc = true;
+        state.info_raw.bitdepth = 8u;
+        state.info_raw.colortype = LodePNGColorType::LCT_RGBA;
 
         uvector2d size{ 0u, 0u };
         std::vector<uint8_t> decoded;
