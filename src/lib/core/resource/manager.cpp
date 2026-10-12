@@ -46,6 +46,10 @@ namespace liqelligence::core::resource
         };
 
         std::filesystem::path resources_dir("resource");
+        if (!std::filesystem::exists(resources_dir)) {
+            return;
+        }
+
         for (const auto& dir : std::filesystem::directory_iterator(resources_dir)) {
             if (!dir.is_directory()) {
                 continue;
