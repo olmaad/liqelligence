@@ -45,7 +45,7 @@ namespace liqelligence::core::resource
             { "sprite", [this](std::filesystem::path path) -> std::shared_ptr<resource_loader> { return std::make_shared<sprite_resource_loader>(_loader, path); } }
         };
 
-        std::filesystem::path resources_dir("res");
+        std::filesystem::path resources_dir("resource");
         for (const auto& dir : std::filesystem::directory_iterator(resources_dir)) {
             if (!dir.is_directory()) {
                 continue;

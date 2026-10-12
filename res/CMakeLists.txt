@@ -1,0 +1,26 @@
+# resources
+set(TARGET_NAME ${PROJECT_NAME}_res)
+set(TARGET_NAME_RES ${TARGET_NAME} PARENT_SCOPE)
+
+set(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/res")
+set(OUTPUT "${TARGET_WORKING_DIRECTORY}/resource")
+
+file(GLOB_RECURSE RESOURCES CONFIGURE_DEPENDS
+    "${INPUT}/*"
+)
+
+source_group(
+    TREE "${CMAKE_CURRENT_SOURCE_DIR}"
+    PREFIX Res
+    FILES ${RESOURCES}
+)
+
+add_custom_target(${TARGET_NAME}
+	ALL
+    COMMAND ${CMAKE_COMMAND} -E rm -rf "${OUTPUT}"
+	COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTPUT}"
+	COMMAND ${CMAKE_COMMAND} -E copy_directory "${INPUT}" "${OUTPUT}"
+	SOURCES ${RESOURCES}
+)
+
+add_dependencies(${TARGET_NAME_GAME} ${TARGET_NAME})

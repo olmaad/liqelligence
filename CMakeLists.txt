@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 4.0)
 
 project(liqelligence LANGUAGES CXX)
 
@@ -16,170 +16,14 @@ find_package(GLEW CONFIG REQUIRED)
 find_package(lodepng CONFIG REQUIRED)
 find_package(Catch2 3 CONFIG REQUIRED)
 
-# core library
-file(GLOB_RECURSE LIB_HEADERS CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/*.hpp"
-)
-
-file(GLOB_RECURSE LIB_SOURCES CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/*.cpp"
-)
-
-set(LIB_FILES
-    ${LIB_HEADERS}
-    ${LIB_SOURCES}
-)
-
-source_group(
-    TREE "${CMAKE_CURRENT_SOURCE_DIR}/src"
-    FILES ${LIB_FILES}
-)
-
-add_library(${PROJECT_NAME}_lib ${LIB_FILES})
-
-target_include_directories(${PROJECT_NAME}_lib PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/lib"
-    GLEW::glew
-    glm::glm
-    glfw
-    lodepng
-)
-
-target_link_libraries(${PROJECT_NAME}_lib PRIVATE
-    GLEW::glew
-    glm::glm
-    glfw
-    lodepng
-)
-
-target_precompile_headers(${PROJECT_NAME}_lib PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp"
-)
-
-# game executable
-file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.hpp"
-)
-
-file(GLOB_RECURSE GAME_SOURCES CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.cpp"
-)
-
-set(GAME_FILES
-    ${GAME_HEADERS}
-    ${GAME_SOURCES}
-)
-
-source_group(
-    TREE "${CMAKE_CURRENT_SOURCE_DIR}/src"
-    FILES ${GAME_FILES}
-)
-
-add_executable(${PROJECT_NAME}_game ${GAME_FILES})
-
-target_include_directories(${PROJECT_NAME}_game PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/game"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/lib"
-    glm::glm
-)
-
-target_link_libraries(${PROJECT_NAME}_game PRIVATE
-    ${PROJECT_NAME}_lib
-    glm::glm
-)
-
-target_precompile_headers(${PROJECT_NAME}_game PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp"
-)
-
-# tests
-file(GLOB_RECURSE TEST_HEADERS CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/test/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/test/*.hpp"
-)
-
-file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/test/*.cpp"
-)
-
-set(TEST_FILES
-    ${TEST_HEADERS}
-    ${TEST_SOURCES}
-)
-
-source_group(
-    TREE "${CMAKE_CURRENT_SOURCE_DIR}/src"
-    FILES ${TEST_FILES}
-)
-
-add_executable(${PROJECT_NAME}_test ${TEST_FILES})
-
-target_include_directories(${PROJECT_NAME}_test PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/lib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
-)
-
-target_link_libraries(${PROJECT_NAME}_test PRIVATE
-    ${PROJECT_NAME}_lib
-    Catch2::Catch2WithMain
-)
-
-include(Catch)
-catch_discover_tests(${PROJECT_NAME}_test)
-
-target_precompile_headers(${PROJECT_NAME}_test PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp"
-)
-
-# resources
-set(RESOURCES_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/res")
-set(RESOURCES_OUTPUT "${CMAKE_BINARY_DIR}/res")
-
-file(GLOB_RECURSE RESOURCES CONFIGURE_DEPENDS
-    "${RESOURCES_INPUT}/*"
-)
-
-source_group(
-    TREE "${CMAKE_CURRENT_SOURCE_DIR}"
-    FILES ${RESOURCES}
-)
-
-add_custom_target(${PROJECT_NAME}_res
-	ALL
-    COMMAND ${CMAKE_COMMAND} -E rm -rf "${RESOURCES_OUTPUT}"
-	COMMAND ${CMAKE_COMMAND} -E make_directory "${RESOURCES_OUTPUT}"
-	COMMAND ${CMAKE_COMMAND} -E copy_directory "${RESOURCES_INPUT}" "${RESOURCES_OUTPUT}"
-	SOURCES ${RESOURCES}
-)
-
-add_dependencies(${PROJECT_NAME}_game ${PROJECT_NAME}_res)
-
-# documentation and doxygen
-set(DOCS_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/docs")
-set(DOCS_OUTPUT "${CMAKE_BINARY_DIR}/doxygen")
-set(DOCS_OUTPUT_GENERATED "${DOCS_OUTPUT}/generated")
-
-configure_file("${DOCS_INPUT}/doxygen_config.template" "${DOCS_OUTPUT}/doxygen_config" @ONLY)
-
-file(GLOB_RECURSE DOCS CONFIGURE_DEPENDS
-    "${DOCS_INPUT}/*"
-)
-
-source_group(
-    TREE "${CMAKE_CURRENT_SOURCE_DIR}"
-    FILES ${DOCS}
-)
-
-add_custom_target(${PROJECT_NAME}_docs
-    ALL
-    COMMAND doxygen -q "${DOCS_OUTPUT}/doxygen_config"
-    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-    SOURCES ${DOCS}
-)
+# sub-lists
+add_subdirectory(src/lib)
+add_subdirectory(src/game)
+add_subdirectory(src/test)
+add_subdirectory(res)
+add_subdirectory(docs)
 
 # platform specific
 if(MSVC)
-    set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}_game)
+    set_property(DIRECTORY "${CMAKE_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT ${TARGET_NAME_GAME})
 endif()

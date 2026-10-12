@@ -1,0 +1,47 @@
+# game executable
+set(TARGET_NAME ${PROJECT_NAME}_game)
+set(TARGET_NAME_GAME ${TARGET_NAME} PARENT_SCOPE)
+set(TARGET_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" PARENT_SCOPE)
+
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
+)
+
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+)
+
+set(FILES
+    ${HEADERS}
+    ${SOURCES}
+)
+
+source_group(
+    TREE "${CMAKE_CURRENT_SOURCE_DIR}"
+    PREFIX Src
+    FILES ${FILES}
+)
+
+add_executable(${TARGET_NAME} ${FILES})
+
+target_include_directories(${TARGET_NAME}
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+        glm::glm
+)
+
+target_link_libraries(${TARGET_NAME}
+    PRIVATE
+        ${TARGET_NAME_LIB}
+        glm::glm
+)
+
+target_precompile_headers(${TARGET_NAME}
+    PRIVATE
+        "${CMAKE_SOURCE_DIR}/src/precompiled.hpp"
+)
+
+set_property(
+    TARGET ${TARGET_NAME}
+    PROPERTY DEBUGGER_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
