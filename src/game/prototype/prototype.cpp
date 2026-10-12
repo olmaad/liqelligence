@@ -6,6 +6,7 @@
 #include <core/component/storage.hpp>
 #include <core/draw/drawer.hpp>
 #include <core/math/math.hpp>
+#include <core/context.hpp>
 
 namespace liqelligence::prototype
 {
@@ -13,7 +14,7 @@ namespace liqelligence::prototype
     {
         constexpr vector2d screen_size{ 1280, 720 };
 
-        auto& storage = core::component::storage::get();
+        auto& storage = core::context::get<core::component::storage>();
 
         for (size_t it = 0u; it < 1u; ++it) {
             auto& sprite = storage.add<game::sprite_component>("test_sprite_1", "sprite_basic");
@@ -36,7 +37,7 @@ namespace liqelligence::prototype
 
     void update_scene(float dt)
     {
-        auto& storage = core::component::storage::get();
+        const auto& storage = core::context::get<core::component::storage>();
         for (auto& it : storage.get_all<game::update_components>()) {
             it.update(dt);
         }
@@ -44,11 +45,11 @@ namespace liqelligence::prototype
 
     void draw_scene()
     {
-        auto& storage = core::component::storage::get();
+        const auto& storage = core::context::get<core::component::storage>();
         for (const auto& it : storage.get_all<game::drawable_components>()) {
             it.draw();
         }
 
-        core::draw::drawer::get().flush();
+        core::context::get<core::draw::drawer>().flush();
     }
 }

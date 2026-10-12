@@ -3,18 +3,16 @@
 #include <core/component/interface_adapter.hpp>
 #include <core/component/component.hpp>
 #include <core/component/bucket.hpp>
+#include <core/context_item.hpp>
 #include <generator>
 #include <memory>
 #include <array>
 
 namespace liqelligence::core::component
 {
-    class storage
+    class storage : public context_item
     {
     public:
-        static storage& get();
-        void reset();
-
         template<component_type t_component, typename ...t_args>
         t_component& add(t_args&&... args)
         {

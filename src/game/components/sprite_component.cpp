@@ -5,12 +5,13 @@
 #include <core/resource/types/sprite.hpp>
 #include <core/draw/units/sprite_unit.hpp>
 #include <core/draw/drawer.hpp>
+#include <core/context.hpp>
 
 namespace liqelligence::game
 {
     sprite_component::sprite_component(const std::string& sprite, const std::string& shader)
     {
-        auto& sprites = core::resource::library::get<core::resource::sprite_library>();
+        auto& sprites = core::context::get<core::resource::library>().get<core::resource::sprite_library>();
         _sprite = sprites.find(sprite);
 
         if (_sprite) {
@@ -18,7 +19,7 @@ namespace liqelligence::game
             set_size(size);
         }
 
-        auto& shaders = core::resource::library::get<core::resource::shader_library>();
+        auto& shaders = core::context::get<core::resource::library>().get<core::resource::shader_library>();
         _shader = shaders.find(shader);
     }
 
@@ -28,7 +29,7 @@ namespace liqelligence::game
             return;
         }
 
-        core::draw::drawer::get().draw(_priority, core::draw::sprite_unit(_rect, *_sprite, *_shader));
+        core::context::get<core::draw::drawer>().draw(_priority, core::draw::sprite_unit(_rect, *_sprite, *_shader));
     }
 
     core::draw::priority_t sprite_component::get_priority() const

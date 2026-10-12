@@ -13,12 +13,6 @@ namespace liqelligence::core::draw
         _layers.reserve(100u);
     }
 
-    drawer& drawer::get()
-    {
-        static drawer instance;
-        return instance;
-    }
-
     void drawer::flush()
     {
         auto layers_sorted = _layers

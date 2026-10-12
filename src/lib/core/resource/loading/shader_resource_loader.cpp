@@ -3,6 +3,7 @@
 #include <core/resource/types/shader.hpp>
 #include <core/resource/loading/data_loader.hpp>
 #include <core/resource/library/shader_library.hpp>
+#include <core/context.hpp>
 
 namespace liqelligence::core::resource
 {
@@ -14,7 +15,8 @@ namespace liqelligence::core::resource
 
     bool shader_resource_loader::loaded() const
     {
-        return library::get<shader_library>().has(get_name());
+        const auto& shaders = context::get<library>().get<shader_library>();
+        return shaders.has(get_name());
     }
 
     void shader_resource_loader::load()
@@ -32,12 +34,14 @@ namespace liqelligence::core::resource
             return;
         }
 
-        library::get<shader_library>().add(get_name(), std::move(resource));
+        auto& shaders = context::get<library>().get<shader_library>();
+        shaders.add(get_name(), std::move(resource));
     }
 
     void shader_resource_loader::unload()
     {
-        library::get<shader_library>().remove(get_name());
+        auto& shaders = context::get<library>().get<shader_library>();
+        shaders.remove(get_name());
     }
 
     shader_resource_loader::paths shader_resource_loader::break_path() const

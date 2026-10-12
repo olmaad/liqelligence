@@ -3,6 +3,7 @@
 #include <components/sprite_component.hpp>
 #include <core/component/storage.hpp>
 #include <core/math/math.hpp>
+#include <core/context.hpp>
 
 namespace liqelligence::game
 {
@@ -16,7 +17,7 @@ namespace liqelligence::game
     {
         _degree += dt * (std::numbers::pi * 2.f / 10.f);
 
-        const auto& storage = core::component::storage::get();
+        const auto& storage = core::context::get<core::component::storage>();
         if (auto* sprite = storage.find<sprite_component>(_sprite_ref)) {
             constexpr vector2d screen_size{ 1280, 720 };
 

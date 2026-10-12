@@ -252,16 +252,5 @@ namespace liqelligence::test
             check_a();
             check_t();
         }
-
-        SECTION("Reset count")
-        {
-            const auto before = storage.get_all<simple_component>();
-            REQUIRE(before.size() == 4u);
-
-            storage.reset();
-
-            const auto after = storage.get_all<simple_component>();
-            REQUIRE(after.empty());
-        }
     }
 }

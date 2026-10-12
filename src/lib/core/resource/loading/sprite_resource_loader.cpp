@@ -4,6 +4,7 @@
 #include <core/resource/loading/data_loader.hpp>
 #include <core/resource/library/sprite_library.hpp>
 #include <core/math/types.hpp>
+#include <core/context.hpp>
 #include <lodepng.h>
 
 namespace liqelligence::core::resource
@@ -15,7 +16,8 @@ namespace liqelligence::core::resource
 
     bool sprite_resource_loader::loaded() const
     {
-        return library::get<sprite_library>().has(get_name());
+        const auto& sprites = context::get<library>().get<sprite_library>();
+        return sprites.has(get_name());
     }
 
     void sprite_resource_loader::load()
@@ -45,11 +47,13 @@ namespace liqelligence::core::resource
             return;
         }
 
-        library::get<sprite_library>().add(get_name(), std::move(resource));
+        auto& sprites = context::get<library>().get<sprite_library>();
+        sprites.add(get_name(), std::move(resource));
     }
 
     void sprite_resource_loader::unload()
     {
-        library::get<sprite_library>().remove(get_name());
+        auto& sprites = context::get<library>().get<sprite_library>();
+        sprites.remove(get_name());
     }
 }
