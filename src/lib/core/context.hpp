@@ -2,7 +2,6 @@
 
 #include <core/utils/multitype_container.hpp>
 #include <core/context_item.hpp>
-#include <memory>
 
 namespace liqelligence::core
 {

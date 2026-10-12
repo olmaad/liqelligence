@@ -1,9 +1,5 @@
 #pragma once
 
-#include <unordered_map>
-#include <memory>
-#include <string>
-
 namespace liqelligence::core::resource
 {
     class base_library

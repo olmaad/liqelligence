@@ -1,7 +1,5 @@
 #include "file_data_loader.hpp"
 
-#include <fstream>
-
 namespace liqelligence::core::resource
 {
     std::vector<uint8_t> file_data_loader::read_data(std::filesystem::path path) const

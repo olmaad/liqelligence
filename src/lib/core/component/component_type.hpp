@@ -1,7 +1,5 @@
 #pragma once
 
-#include <concepts>
-
 namespace liqelligence::core::component
 {
     class component;

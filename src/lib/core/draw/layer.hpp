@@ -3,10 +3,6 @@
 #include <core/draw/unit_description.hpp>
 #include <core/draw/action.hpp>
 #include <core/draw/batch.hpp>
-#include <unordered_map>
-#include <generator>
-#include <typeindex>
-#include <memory>
 
 namespace liqelligence::core::draw
 {

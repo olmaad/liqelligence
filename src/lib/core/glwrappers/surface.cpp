@@ -1,7 +1,5 @@
 #include "surface.hpp"
 
-#include <array>
-
 namespace
 {
     constexpr std::array<float, 24u> vertices{

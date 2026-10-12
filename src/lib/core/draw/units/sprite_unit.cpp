@@ -5,8 +5,6 @@
 #include <core/glwrappers/vertex_buffer.hpp>
 #include <core/glwrappers/surface.hpp>
 #include <core/draw/bindable.hpp>
-#include <ranges>
-#include <string>
 
 namespace liqelligence::core::draw
 {

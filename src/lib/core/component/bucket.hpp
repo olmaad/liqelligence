@@ -2,9 +2,6 @@
 
 #include <core/component/component_ref.hpp>
 #include <core/component/container.hpp>
-#include <vector>
-#include <algorithm>
-#include <iterator>
 
 namespace liqelligence::core::component
 {

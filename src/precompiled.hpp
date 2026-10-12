@@ -1,0 +1,22 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <cmath>
+#include <concepts>
+#include <filesystem>
+#include <fstream>
+#include <functional>
+#include <generator>
+#include <iterator>
+#include <list>
+#include <memory>
+#include <numbers>
+#include <ranges>
+#include <string>
+#include <type_traits>
+#include <typeindex>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>

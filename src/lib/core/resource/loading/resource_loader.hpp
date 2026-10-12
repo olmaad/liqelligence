@@ -1,7 +1,5 @@
 #pragma once
 
-#include <filesystem>
-
 namespace liqelligence::core::resource
 {
     class data_loader;

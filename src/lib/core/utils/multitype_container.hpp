@@ -1,10 +1,5 @@
 #pragma once
 
-#include <unordered_map>
-#include <typeindex>
-#include <concepts>
-#include <memory>
-
 namespace liqelligence::core
 {
     template<typename t_item, typename t_base>

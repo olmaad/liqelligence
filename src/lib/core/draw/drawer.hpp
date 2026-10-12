@@ -3,7 +3,6 @@
 #include <core/context_item.hpp>
 #include <core/draw/types.hpp>
 #include <core/draw/layer.hpp>
-#include <unordered_map>
 
 namespace liqelligence::core::draw
 {

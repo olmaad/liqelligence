@@ -1,8 +1,5 @@
 #pragma once
 
-#include <filesystem>
-#include <vector>
-
 namespace liqelligence::core::resource
 {
     class data_loader

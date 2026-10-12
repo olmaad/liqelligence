@@ -1,8 +1,5 @@
 #pragma once
 
-#include <type_traits>
-#include <typeindex>
-
 namespace liqelligence::core::draw
 {
     class unit_description

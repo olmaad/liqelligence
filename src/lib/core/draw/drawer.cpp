@@ -3,8 +3,6 @@
 #include <core/resource/types/sprite.hpp>
 #include <core/resource/types/shader.hpp>
 #include <core/draw/unit.hpp>
-#include <algorithm>
-#include <ranges>
 
 namespace liqelligence::core::draw
 {

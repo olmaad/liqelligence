@@ -1,8 +1,5 @@
 #pragma once
 
-#include <vector>
-#include <ranges>
-
 namespace liqelligence::core::component
 {
     template<typename t_component>

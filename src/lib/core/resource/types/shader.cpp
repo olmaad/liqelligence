@@ -1,7 +1,5 @@
 #include "shader.hpp"
 
-#include <array>
-
 namespace liqelligence::core::resource
 {
     shader::shader(std::vector<uint8_t>&& fragment_code, std::vector<uint8_t>&& vertex_code)

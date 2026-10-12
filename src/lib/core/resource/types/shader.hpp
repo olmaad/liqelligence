@@ -2,8 +2,6 @@
 
 #include <gl/glew.h>
 #include <core/math/types.hpp>
-#include <vector>
-#include <string>
 
 namespace liqelligence::core::resource
 {

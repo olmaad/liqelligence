@@ -4,9 +4,6 @@
 #include <core/component/component.hpp>
 #include <core/component/bucket.hpp>
 #include <core/context_item.hpp>
-#include <generator>
-#include <memory>
-#include <array>
 
 namespace liqelligence::core::component
 {

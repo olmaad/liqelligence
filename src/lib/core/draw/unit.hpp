@@ -2,10 +2,6 @@
 
 #include <core/draw/unit_description.hpp>
 #include <core/draw/action.hpp>
-#include <generator>
-#include <utility>
-#include <vector>
-#include <memory>
 
 namespace liqelligence::core::draw
 {

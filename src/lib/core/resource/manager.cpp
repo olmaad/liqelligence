@@ -4,8 +4,6 @@
 #include <core/resource/loading/shader_resource_loader.hpp>
 #include <core/resource/loading/sprite_resource_loader.hpp>
 #include <core/resource/helpers.hpp>
-#include <filesystem>
-#include <functional>
 
 namespace liqelligence::core::resource
 {

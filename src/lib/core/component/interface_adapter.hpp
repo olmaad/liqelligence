@@ -1,9 +1,6 @@
 #pragma once
 
 #include <core/component/component_type.hpp>
-#include <type_traits>
-#include <generator>
-#include <concepts>
 
 namespace liqelligence::core::component
 {

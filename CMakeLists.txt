@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 enable_testing()
 
+# vcpkg dependencies
 include("$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
 find_package(OpenGL REQUIRED)
 find_package(glm CONFIG REQUIRED)
@@ -15,6 +16,7 @@ find_package(GLEW CONFIG REQUIRED)
 find_package(lodepng CONFIG REQUIRED)
 find_package(Catch2 3 CONFIG REQUIRED)
 
+# core library
 file(GLOB_RECURSE LIB_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/lib/*.hpp"
@@ -51,6 +53,9 @@ target_link_libraries(${PROJECT_NAME}_lib PRIVATE
     lodepng
 )
 
+target_precompile_headers(${PROJECT_NAME}_lib PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp")
+
+# game executable
 file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.hpp"
@@ -83,6 +88,9 @@ target_link_libraries(${PROJECT_NAME}_game PRIVATE
     glm::glm
 )
 
+target_precompile_headers(${PROJECT_NAME}_game PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp")
+
+# tests
 file(GLOB_RECURSE TEST_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/test/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/test/*.hpp"
@@ -117,6 +125,9 @@ target_link_libraries(${PROJECT_NAME}_test PRIVATE
 include(Catch)
 catch_discover_tests(${PROJECT_NAME}_test)
 
+target_precompile_headers(${PROJECT_NAME}_test PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp")
+
+# resources
 set(RESOURCES_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/res")
 set(RESOURCES_OUTPUT "${CMAKE_BINARY_DIR}/res")
 
@@ -139,6 +150,7 @@ add_custom_target(${PROJECT_NAME}_res
 
 add_dependencies(${PROJECT_NAME}_game ${PROJECT_NAME}_res)
 
+# documentation and doxygen
 set(DOCS_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/docs")
 set(DOCS_OUTPUT "${CMAKE_BINARY_DIR}/doxygen")
 set(DOCS_OUTPUT_GENERATED "${DOCS_OUTPUT}/generated")
@@ -161,6 +173,7 @@ add_custom_target(${PROJECT_NAME}_docs
     SOURCES ${DOCS}
 )
 
+# platform specific
 if(MSVC)
     set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}_game)
 endif()

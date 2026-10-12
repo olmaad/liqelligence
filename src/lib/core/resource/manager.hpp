@@ -1,15 +1,13 @@
 #pragma once
 
-#include <unordered_map>
-#include <string>
-#include <memory>
+#include <core/context_item.hpp>
 
 namespace liqelligence::core::resource
 {
     class resource_loader;
     class data_loader;
 
-    class manager
+    class manager : public context_item
     {
     public:
         enum class load_mode {

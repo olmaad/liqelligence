@@ -1,7 +1,5 @@
 #pragma once
 
-#include <concepts>
-
 namespace liqelligence
 {
     template<typename t_value, typename t_vector>

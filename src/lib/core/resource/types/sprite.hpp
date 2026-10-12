@@ -4,7 +4,6 @@
 #include <core/glwrappers/surface.hpp>
 #include <core/math/types.hpp>
 #include <gl/glew.h>
-#include <vector>
 
 namespace liqelligence::core::resource
 {

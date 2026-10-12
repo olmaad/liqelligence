@@ -1,8 +1,6 @@
 #pragma once
 
 #include <core/draw/unit.hpp>
-#include <generator>
-#include <vector>
 
 namespace liqelligence::core::draw
 {

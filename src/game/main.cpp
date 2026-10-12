@@ -2,6 +2,7 @@
 #include <core/resource/manager.hpp>
 #include <core/glwrappers/context.hpp>
 #include <core/glwrappers/window.hpp>
+#include <core/context.hpp>
 #include <chrono>
 
 int main() {
@@ -17,7 +18,7 @@ int main() {
         return 2;
     }
 
-    core::resource::manager resources;
+    auto& resources = core::context::get<core::resource::manager>();
     resources.load(core::resource::manager::load_mode::all);
 
     prototype::setup_scene();
