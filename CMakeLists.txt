@@ -53,7 +53,9 @@ target_link_libraries(${PROJECT_NAME}_lib PRIVATE
     lodepng
 )
 
-target_precompile_headers(${PROJECT_NAME}_lib PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp")
+target_precompile_headers(${PROJECT_NAME}_lib PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp"
+)
 
 # game executable
 file(GLOB_RECURSE GAME_HEADERS CONFIGURE_DEPENDS
@@ -88,7 +90,9 @@ target_link_libraries(${PROJECT_NAME}_game PRIVATE
     glm::glm
 )
 
-target_precompile_headers(${PROJECT_NAME}_game PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp")
+target_precompile_headers(${PROJECT_NAME}_game PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp"
+)
 
 # tests
 file(GLOB_RECURSE TEST_HEADERS CONFIGURE_DEPENDS
@@ -125,7 +129,9 @@ target_link_libraries(${PROJECT_NAME}_test PRIVATE
 include(Catch)
 catch_discover_tests(${PROJECT_NAME}_test)
 
-target_precompile_headers(${PROJECT_NAME}_test PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp")
+target_precompile_headers(${PROJECT_NAME}_test PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/precompiled.hpp"
+)
 
 # resources
 set(RESOURCES_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/res")
@@ -168,7 +174,7 @@ source_group(
 
 add_custom_target(${PROJECT_NAME}_docs
     ALL
-    COMMAND doxygen "${DOCS_OUTPUT}/doxygen_config"
+    COMMAND doxygen -q "${DOCS_OUTPUT}/doxygen_config"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     SOURCES ${DOCS}
 )
