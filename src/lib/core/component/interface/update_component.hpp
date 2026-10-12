@@ -2,6 +2,9 @@
 
 namespace liqelligence::core::component
 {
+    /*!
+    * Updateable component interface. Must be used with interface_adapter
+    */
     class i_update_component
     {
     public:

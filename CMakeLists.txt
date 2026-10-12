@@ -139,8 +139,14 @@ add_custom_target(${PROJECT_NAME}_res
 
 add_dependencies(${PROJECT_NAME}_game ${PROJECT_NAME}_res)
 
+set(DOCS_INPUT "${CMAKE_CURRENT_SOURCE_DIR}/docs")
+set(DOCS_OUTPUT "${CMAKE_BINARY_DIR}/doxygen")
+set(DOCS_OUTPUT_GENERATED "${DOCS_OUTPUT}/generated")
+
+configure_file("${DOCS_INPUT}/doxygen_config.template" "${DOCS_OUTPUT}/doxygen_config" @ONLY)
+
 file(GLOB_RECURSE DOCS CONFIGURE_DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/docs/*"
+    "${DOCS_INPUT}/*"
 )
 
 source_group(
@@ -148,7 +154,12 @@ source_group(
     FILES ${DOCS}
 )
 
-add_custom_target(${PROJECT_NAME}_docs SOURCES ${DOCS})
+add_custom_target(${PROJECT_NAME}_docs
+    ALL
+    COMMAND doxygen "${DOCS_OUTPUT}/doxygen_config"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    SOURCES ${DOCS}
+)
 
 if(MSVC)
     set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME}_game)
