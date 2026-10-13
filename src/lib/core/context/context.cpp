@@ -2,20 +2,44 @@
 
 namespace liqelligence::core
 {
-    std::unique_ptr<context::instance_type> context::_instance{};
+    bool context::_available = false;
+    std::unique_ptr<context> context::_instance;
 
-    context::instance_type& context::instance()
+    context::context()
     {
-        if (!_instance) {
-            recreate();
-        }
+        _available = true;
+    }
 
-        return *_instance;
+    context::~context() noexcept
+    {
+        _available = false;
+    }
+
+    bool context::available()
+    {
+        return _available;
     }
 
     void context::recreate()
     {
         _instance.reset();
-        _instance = std::make_unique<instance_type>();
+    }
+
+    context& context::instance()
+    {
+        if (!_instance) {
+            _instance = std::make_unique<context>();
+        }
+
+        return *_instance;
+    }
+
+    context* context::instance_ptr()
+    {
+        if (_available) {
+            return _instance.get();
+        }
+
+        return {};
     }
 }

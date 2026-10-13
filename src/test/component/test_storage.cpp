@@ -149,10 +149,12 @@ namespace liqelligence::test
         {
             const auto components = storage.get_all<component_a>();
 
-            const auto front = components.front();
+            const auto& front = components.front();
+            const auto front_value = std::make_tuple(front.a, front.b);
             const auto front_ref = front.get_ref();
             REQUIRE(front_ref);
-            const auto back = components.back();
+            const auto& back = components.back();
+            const auto back_value = std::make_tuple(back.a, back.b);
             const auto back_ref = back.get_ref();
             REQUIRE(back_ref);
 
@@ -163,11 +165,11 @@ namespace liqelligence::test
 
             const auto* found_front = storage.find<component_a>(front_ref);
             REQUIRE(found_front);
-            REQUIRE(front == (*found_front));
+            REQUIRE(front_value == std::make_tuple(found_front->a, found_front->b));
 
             const auto* found_back = storage.find<component_a>(back_ref);
             REQUIRE(found_back);
-            REQUIRE(back == (*found_back));
+            REQUIRE(back_value == std::make_tuple(found_back->a, found_back->b));
         }
     }
 

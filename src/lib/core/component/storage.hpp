@@ -10,6 +10,17 @@ namespace liqelligence::core::component
     class storage : public context_item
     {
     public:
+        bool has(component_ref ref) const
+        {
+            if (ref) {
+                if (const auto* bucket = find_generic_bucket_for(ref.get_type())) {
+                    return bucket->has(ref);
+                }
+            }
+
+            return false;
+        }
+
         template<component_type t_component, typename ...t_args>
             requires std::constructible_from<t_component, t_args...>
         t_component& add(t_args&&... args)
@@ -79,7 +90,7 @@ namespace liqelligence::core::component
         bucket<t_component>* find_bucket_for() const
         {
             const auto type = get_type_of<t_component>();
-            return reinterpret_cast<bucket<t_component>*>(find_generic_bucket_for(type));
+            return static_cast<bucket<t_component>*>(find_generic_bucket_for(type));
         }
 
         generic_bucket* find_generic_bucket_for(component_type_t type) const
@@ -97,7 +108,7 @@ namespace liqelligence::core::component
                 ptr = std::make_shared<bucket<t_component>>();
             }
 
-            return reinterpret_cast<bucket<t_component>&>(*ptr);
+            return static_cast<bucket<t_component>&>(*ptr);
         }
 
     private:

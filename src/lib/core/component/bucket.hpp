@@ -8,6 +8,7 @@ namespace liqelligence::core::component
     class generic_bucket
     {
     public:
+        virtual bool has(component_ref ref) const = 0;
         virtual void remove(component_ref ref) = 0;
     };
 
@@ -17,6 +18,14 @@ namespace liqelligence::core::component
         static_assert(component_type<t_component>, "t_component must be component type");
 
     public:
+        bool has(component_ref ref) const override
+        {
+            return ref
+                && ref.get_type() == get_type_of<t_component>()
+                && ref.get_id() < _components_index.size()
+                && _components_index.at(ref.get_id()) < _components.size();
+        }
+
         template<typename ...t_args>
             requires std::constructible_from<t_component, t_args...>
         t_component& add(t_args&&... args)
@@ -82,6 +91,7 @@ namespace liqelligence::core::component
                 std::swap(it, swap);
             }
 
+            const auto recursion_guard = std::move(_components.back());
             _components.pop_back();
 
             if (_components.empty()) {

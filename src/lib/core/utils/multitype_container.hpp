@@ -33,6 +33,14 @@ namespace liqelligence::core
             }
         }
 
+        template<multitype_container_item_type<t_base> t_item>
+        t_item* find()
+        {
+            if (auto it = _items.find(typeid(t_item)); it != _items.end()) {
+                return it->second.get();
+            }
+        }
+
     protected:
         std::unordered_map<std::type_index, std::unique_ptr<t_base>> _items;
 

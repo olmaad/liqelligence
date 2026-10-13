@@ -21,5 +21,7 @@ namespace liqelligence::core::component
 
     template<typename t_component>
     concept component_type = std::derived_from<t_component, component>
-        && std::swappable<t_component>;
+        && std::swappable<t_component>
+        && std::move_constructible<t_component>
+        && std::is_move_assignable_v<t_component>;
 }
