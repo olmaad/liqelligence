@@ -18,6 +18,7 @@ namespace liqelligence::core::component
 
     public:
         template<typename ...t_args>
+            requires std::constructible_from<t_component, t_args...>
         t_component& add(t_args&&... args)
         {
             const auto index = _components.size();

@@ -22,7 +22,7 @@ source_group(
     FILES ${FILES}
 )
 
-add_executable(${TARGET_NAME} ${FILES})
+add_executable(${TARGET_NAME} ${FILES} ${LIQELLIGENCE_COMMON_FILES})
 
 target_include_directories(${TARGET_NAME}
     PRIVATE
@@ -40,5 +40,5 @@ catch_discover_tests(${TARGET_NAME})
 
 target_precompile_headers(${PROJECT_NAME}_test
     PRIVATE
-        "${CMAKE_SOURCE_DIR}/src/precompiled.hpp"
+        "${LIQELLIGENCE_PRECOMPILE_HEADERS}"
 )

@@ -3,7 +3,7 @@
 #include <components/sprite_component.hpp>
 #include <core/component/storage.hpp>
 #include <core/math/math.hpp>
-#include <core/context.hpp>
+#include <core/context/context.hpp>
 
 namespace liqelligence::game
 {

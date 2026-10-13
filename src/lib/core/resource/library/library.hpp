@@ -2,7 +2,7 @@
 
 #include <core/resource/library/resource_library.hpp>
 #include <core/utils/multitype_container.hpp>
-#include <core/context_item.hpp>
+#include <core/context/item.hpp>
 
 namespace liqelligence::core::resource
 {

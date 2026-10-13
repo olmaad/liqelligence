@@ -10,9 +10,6 @@ namespace liqelligence::core::component
         friend class bucket;
 
     public:
-        virtual void update(float dt);
-        virtual void draw();
-
         component_ref get_ref() const;
 
     private:

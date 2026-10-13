@@ -1,7 +1,7 @@
 # game executable
 set(TARGET_NAME ${PROJECT_NAME}_game)
 set(TARGET_NAME_GAME ${TARGET_NAME} PARENT_SCOPE)
-set(TARGET_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" PARENT_SCOPE)
+set(LIQELLIGENCE_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}" PARENT_SCOPE)
 
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
@@ -23,7 +23,7 @@ source_group(
     FILES ${FILES}
 )
 
-add_executable(${TARGET_NAME} ${FILES})
+add_executable(${TARGET_NAME} ${FILES} ${LIQELLIGENCE_COMMON_FILES})
 
 target_include_directories(${TARGET_NAME}
     PRIVATE
@@ -39,7 +39,7 @@ target_link_libraries(${TARGET_NAME}
 
 target_precompile_headers(${TARGET_NAME}
     PRIVATE
-        "${CMAKE_SOURCE_DIR}/src/precompiled.hpp"
+        "${LIQELLIGENCE_PRECOMPILE_HEADERS}"
 )
 
 set_property(

@@ -3,7 +3,7 @@
 #include <core/component/interface_adapter.hpp>
 #include <core/component/component.hpp>
 #include <core/component/bucket.hpp>
-#include <core/context_item.hpp>
+#include <core/context/item.hpp>
 
 namespace liqelligence::core::component
 {
@@ -11,6 +11,7 @@ namespace liqelligence::core::component
     {
     public:
         template<component_type t_component, typename ...t_args>
+            requires std::constructible_from<t_component, t_args...>
         t_component& add(t_args&&... args)
         {
             auto& bucket = get_bucket_for<t_component>();

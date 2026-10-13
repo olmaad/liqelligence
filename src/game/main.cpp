@@ -2,8 +2,7 @@
 #include <core/resource/manager.hpp>
 #include <core/glwrappers/context.hpp>
 #include <core/glwrappers/window.hpp>
-#include <core/context.hpp>
-#include <chrono>
+#include <core/context/context.hpp>
 
 int main() {
     using namespace liqelligence;

@@ -6,7 +6,7 @@
 #include <core/component/storage.hpp>
 #include <core/draw/drawer.hpp>
 #include <core/math/math.hpp>
-#include <core/context.hpp>
+#include <core/context/context.hpp>
 
 namespace liqelligence::prototype
 {

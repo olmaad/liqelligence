@@ -22,7 +22,7 @@ source_group(
     FILES ${FILES}
 )
 
-add_library(${TARGET_NAME} ${FILES})
+add_library(${TARGET_NAME} ${FILES} ${LIQELLIGENCE_COMMON_FILES})
 
 target_include_directories(${TARGET_NAME}
     PUBLIC
@@ -44,5 +44,5 @@ target_link_libraries(${TARGET_NAME}
 
 target_precompile_headers(${TARGET_NAME}
     PRIVATE
-        "${CMAKE_SOURCE_DIR}/src/precompiled.hpp"
+        "${LIQELLIGENCE_PRECOMPILE_HEADERS}"
 )

@@ -3,8 +3,8 @@
 #include <core/resource/types/sprite.hpp>
 #include <core/resource/loading/data_loader.hpp>
 #include <core/resource/library/sprite_library.hpp>
+#include <core/context/context.hpp>
 #include <core/math/types.hpp>
-#include <core/context.hpp>
 #include <lodepng.h>
 
 namespace liqelligence::core::resource

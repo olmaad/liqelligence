@@ -5,7 +5,7 @@
 #include <core/resource/types/sprite.hpp>
 #include <core/draw/units/sprite_unit.hpp>
 #include <core/draw/drawer.hpp>
-#include <core/context.hpp>
+#include <core/context/context.hpp>
 
 namespace liqelligence::game
 {

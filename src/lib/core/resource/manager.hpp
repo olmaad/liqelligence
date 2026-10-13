@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/context_item.hpp>
+#include <core/context/item.hpp>
 
 namespace liqelligence::core::resource
 {

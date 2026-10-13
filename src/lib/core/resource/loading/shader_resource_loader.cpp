@@ -3,7 +3,7 @@
 #include <core/resource/types/shader.hpp>
 #include <core/resource/loading/data_loader.hpp>
 #include <core/resource/library/shader_library.hpp>
-#include <core/context.hpp>
+#include <core/context/context.hpp>
 
 namespace liqelligence::core::resource
 {

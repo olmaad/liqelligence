@@ -16,6 +16,15 @@ find_package(GLEW CONFIG REQUIRED)
 find_package(lodepng CONFIG REQUIRED)
 find_package(Catch2 3 CONFIG REQUIRED)
 
+# common files
+set(LIQELLIGENCE_PRECOMPILE_HEADERS
+    "${CMAKE_SOURCE_DIR}/src/precompiled.hpp"
+)
+
+set(LIQELLIGENCE_COMMON_FILES
+    ${LIQELLIGENCE_PRECOMPILE_HEADERS}
+)
+
 # sub-lists
 add_subdirectory(src/lib)
 add_subdirectory(src/game)
