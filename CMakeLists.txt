@@ -26,6 +26,9 @@ set(LIQELLIGENCE_COMMON_FILES
     ${LIQELLIGENCE_PRECOMPILE_HEADERS}
 )
 
+# common settings
+add_compile_definitions(GLM_FORCE_CTOR_INIT)
+
 # sub-lists
 add_subdirectory(src/lib)
 add_subdirectory(src/game)
