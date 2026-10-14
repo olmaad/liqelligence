@@ -7,5 +7,7 @@ namespace liqelligence::core
     public:
         virtual ~context_item() noexcept = default;
 
+        virtual void update();
+
     };
 }

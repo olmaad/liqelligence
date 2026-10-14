@@ -2,7 +2,7 @@
 
 namespace liqelligence
 {
-    transform_value::transform_value(vector2d pos, fvector2d scale, float rotation)
+    transform_value::transform_value(fvector2d pos, fvector2d scale, float rotation)
         : _pos(pos)
         , _scale(scale)
         , _rotation(rotation)

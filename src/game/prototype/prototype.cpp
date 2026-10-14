@@ -1,12 +1,9 @@
 #include "prototype.hpp"
 
-#include <components/sprite_component.hpp>
-#include <components/move_component.hpp>
 #include <components/sets.hpp>
 #include <core/component/storage.hpp>
 #include <core/component/entity.hpp>
 #include <core/draw/drawer.hpp>
-#include <core/math/math.hpp>
 #include <core/context/context.hpp>
 
 namespace liqelligence::prototype
@@ -17,23 +14,10 @@ namespace liqelligence::prototype
 
         auto& storage = core::context::get<core::component::storage>();
 
-        for (size_t it = 0u; it < 1u; ++it) {
-            auto& sprite = storage.add<game::sprite_component>("test_sprite_1", "sprite_basic");
-            sprite.set_priority(0u);
-            sprite.set_size(screen_size);
-        }
+        auto& entity = storage.add<core::component::entity>();
 
-        for (size_t it = 0u; it < 8u; ++it) {
-            constexpr auto size = vector2d{ 100, 100 };
-
-            auto& entity = storage.add<core::component::entity>();
-
-            auto& sprite = entity.get_or_add<game::sprite_component>("test_sprite_2", "sprite_basic");
-            sprite.set_priority(100u);
-            sprite.set_size(size);
-
-            auto& move = entity.get_or_add<game::move_component>(static_cast<float>(it) / 8.f * static_cast<float>(std::numbers::pi) * 2.f);
-        }
+        auto& spawner = entity.get_or_add<game::spawner_component>();
+        spawner.get_transform().set_pos({ 50.f, 360.f });
     }
 
     void update_scene(float dt)
@@ -42,6 +26,8 @@ namespace liqelligence::prototype
         for (auto& it : storage.get_all<game::update_components>()) {
             it.update(dt);
         }
+
+        core::context::update();
     }
 
     void draw_scene()

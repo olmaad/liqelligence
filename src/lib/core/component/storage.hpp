@@ -85,6 +85,18 @@ namespace liqelligence::core::component
             _buckets.at(type).reset();
         }
 
+        void schedule_remove(component_ref ref)
+        {
+            _pending_remove.emplace_back(ref);
+        }
+
+        void update() override
+        {
+            for (const auto& it : _pending_remove) {
+                remove(it);
+            }
+        }
+
     private:
         template<component_type t_component>
         bucket<t_component>* find_bucket_for() const
@@ -113,6 +125,8 @@ namespace liqelligence::core::component
 
     private:
         std::array<std::shared_ptr<generic_bucket>, detail::type_count_max> _buckets;
+
+        std::vector<component_ref> _pending_remove;
 
     };
 }

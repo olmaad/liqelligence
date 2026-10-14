@@ -20,6 +20,13 @@ namespace liqelligence::core
         return _available;
     }
 
+    void context::update()
+    {
+        if (auto* ptr = instance_ptr()) {
+            ptr->update_items();
+        }
+    }
+
     void context::recreate()
     {
         _instance.reset();
@@ -41,5 +48,12 @@ namespace liqelligence::core
         }
 
         return {};
+    }
+
+    void context::update_items()
+    {
+        for (const auto& it : _container | std::views::values) {
+            it->update();
+        }
     }
 }

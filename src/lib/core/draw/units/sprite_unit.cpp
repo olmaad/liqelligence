@@ -8,14 +8,14 @@
 
 namespace liqelligence::core::draw
 {
-    sprite_unit::sprite_unit(rect2d rect, const resource::sprite& sprite, const resource::shader& shader)
+    sprite_unit::sprite_unit(frect2d rect, const resource::sprite& sprite, const resource::shader& shader)
         : _rect(rect)
         , _sprite(sprite)
         , _shader(shader)
     {
     }
 
-    rect2d sprite_unit::get_rect() const
+    frect2d sprite_unit::get_rect() const
     {
         return _rect;
     }
@@ -60,8 +60,7 @@ namespace liqelligence::core::draw
                 const auto rects = units
                     | std::views::transform([](const auto& it)
                         {
-                            const auto& rect = it.get_rect();
-                            return frect2d(rect.x, rect.y, rect.width, rect.height);
+                            return it.get_rect();
                         })
                     | std::ranges::to<std::vector>();
 

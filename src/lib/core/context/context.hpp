@@ -32,11 +32,14 @@ namespace liqelligence::core
             return {};
         }
 
+        static void update();
         static void recreate();
 
     private:
         static context& instance();
         static context* instance_ptr();
+
+        void update_items();
 
     private:
         static bool _available;

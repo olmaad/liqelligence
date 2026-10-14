@@ -6,23 +6,35 @@
 
 namespace liqelligence::game
 {
-    move_component::move_component(float offset)
-        : _degree(offset)
+    move_component::move_component()
     {
     }
 
     void move_component::update(float dt)
     {
-        _degree += dt * (std::numbers::pi * 2.f / 10.f);
-
-        const auto& storage = core::context::get<core::component::storage>();
-        constexpr vector2d screen_size{ 1280, 720 };
-
-        constexpr auto size = vector2d{ 100, 100 };
-        const auto middle = (screen_size - size) / vector2d{ 2, 2 };
-        const auto offset = vector2d{ 300, 300 } *vector2d{ std::cos(_degree), std::sin(_degree) };
+        _speed = _speed + _acceleration * dt;
 
         auto transform = get_transform();
-        transform.set_pos(middle + offset);
+        transform.set_pos(transform.get_pos() + _speed * dt);
+    }
+
+    fvector2d move_component::get_speed() const
+    {
+        return _speed;
+    }
+
+    void move_component::set_speed(fvector2d value)
+    {
+        _speed = value;
+    }
+
+    fvector2d move_component::get_acceleration() const
+    {
+        return _acceleration;
+    }
+
+    void move_component::set_acceleration(fvector2d value)
+    {
+        _acceleration = value;
     }
 }

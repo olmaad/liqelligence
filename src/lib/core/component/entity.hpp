@@ -85,6 +85,12 @@ namespace liqelligence::core::component
             }
         }
 
+        void destroy()
+        {
+            auto& storage = get_storage();
+            storage.schedule_remove(get_ref());
+        }
+
         transform& get_transform() { return _transform; }
         const transform& get_transform() const { return _transform; }
 

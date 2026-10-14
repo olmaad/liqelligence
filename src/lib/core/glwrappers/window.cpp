@@ -14,7 +14,7 @@ namespace liqelligence::core::gl
             //glfwSwapInterval(0);
             glewInit();
 
-            glClearColor(1.f, 0.f, 0.f, 1.f);
+            glClearColor(0.f, 0.f, 0.f, 1.f);
 
             glEnable(GL_BLEND);
             glBlendEquation(GL_FUNC_ADD);

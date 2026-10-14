@@ -15,16 +15,16 @@ namespace liqelligence::core::draw
     class sprite_unit : public unit
     {
     public:
-        sprite_unit(rect2d rect, const resource::sprite& sprite, const resource::shader& shader);
+        sprite_unit(frect2d rect, const resource::sprite& sprite, const resource::shader& shader);
 
-        rect2d get_rect() const;
+        frect2d get_rect() const;
         const resource::sprite& get_sprite() const;
         const resource::shader& get_shader() const;
 
         hash_t get_hash() const override;
 
     private:
-        const rect2d _rect;
+        const frect2d _rect;
 
         const resource::sprite& _sprite;
         const resource::shader& _shader;

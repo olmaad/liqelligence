@@ -4,8 +4,6 @@
 #include <core/component/component.hpp>
 #include <core/draw/types.hpp>
 #include <core/math/types.hpp>
-#include <memory>
-#include <string>
 
 namespace liqelligence::core::resource
 {
