@@ -12,11 +12,11 @@
 - [ ] Draw parameters
 - [ ] Stencil and blending passes
 - [ ] Layer sets (game, ui, etc.)
-- [ ] Sprite rotation
+- [ ] Applying entity transform to sprites
 
 ### Component
 
-- [ ] Entity
-- [ ] Entity position, scale, rotation
+- [x] Entity
+- [ ] Entity transform - position, scale, rotation
 - [ ] Scene
 - [ ] Load/unload
