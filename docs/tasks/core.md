@@ -17,6 +17,6 @@
 ### Component
 
 - [x] Entity
-- [ ] Entity transform - position, scale, rotation
+- [x] Entity transform - position, scale, rotation
 - [ ] Scene
 - [ ] Load/unload
