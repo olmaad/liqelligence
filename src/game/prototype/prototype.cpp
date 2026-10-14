@@ -4,6 +4,7 @@
 #include <components/move_component.hpp>
 #include <components/sets.hpp>
 #include <core/component/storage.hpp>
+#include <core/component/entity.hpp>
 #include <core/draw/drawer.hpp>
 #include <core/math/math.hpp>
 #include <core/context/context.hpp>
@@ -23,15 +24,15 @@ namespace liqelligence::prototype
         }
 
         for (size_t it = 0u; it < 8u; ++it) {
-            const auto size = vector2d{ 100, 100 };
+            constexpr auto size = vector2d{ 100, 100 };
 
-            auto& sprite = storage.add<game::sprite_component>("test_sprite_2", "sprite_basic");
+            auto& entity = storage.add<core::component::entity>();
+
+            auto& sprite = entity.get_or_add<game::sprite_component>("test_sprite_2", "sprite_basic");
             sprite.set_priority(100u);
             sprite.set_size(size);
 
-            const auto sprite_ref = sprite.get_ref();
-
-            auto& move = storage.add<game::move_component>(sprite_ref, static_cast<float>(it) / 8.f * static_cast<float>(std::numbers::pi) * 2.f);
+            auto& move = entity.get_or_add<game::move_component>(static_cast<float>(it) / 8.f * static_cast<float>(std::numbers::pi) * 2.f);
         }
     }
 

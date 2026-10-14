@@ -1,5 +1,6 @@
 #pragma once
 
+#include <core/math/types/transform.hpp>
 #include <core/component/component.hpp>
 #include <core/component/storage.hpp>
 #include <core/context/context.hpp>
@@ -84,13 +85,18 @@ namespace liqelligence::core::component
             }
         }
 
+        transform& get_transform() { return _transform; }
+        const transform& get_transform() const { return _transform; }
+
     private:
         static storage& get_storage()
         {
             return context::get<storage>();
         }
 
-    public:
+    private:
+        transform_value _transform;
+
         std::unordered_map<std::type_index, component_ref> _components;
 
     };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <core/math/types/vector.hpp>
+
 namespace liqelligence
 {
     template<typename t_value, typename t_vector>
@@ -13,6 +15,14 @@ namespace liqelligence
             , y(i_y)
             , width(i_width)
             , height(i_height)
+        {
+        }
+
+        rect(t_vector start, t_vector size)
+            : x(start.x)
+            , y(start.y)
+            , width(size.x)
+            , height(size.y)
         {
         }
 
@@ -45,4 +55,8 @@ namespace liqelligence
         t_value height{};
 
     };
+
+    using rect2d = rect<int, vector2d>;
+    using urect2d = rect<uint32_t, uvector2d>;
+    using frect2d = rect<float, fvector2d>;
 }

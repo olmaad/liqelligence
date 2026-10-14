@@ -1,6 +1,7 @@
 #pragma once
 
-#include "component_ref.hpp"
+#include <core/component/component_ref.hpp>
+#include <core/math/types/transform.hpp>
 
 namespace liqelligence::core::component
 {
@@ -24,6 +25,9 @@ namespace liqelligence::core::component
         void set_entity(component_ref value);
 
         entity* find_entity() const;
+
+        transform_proxy<const transform> get_transform() const;
+        transform_proxy<transform> get_transform();
 
     protected:
         component_ref _entity;

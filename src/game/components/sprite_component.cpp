@@ -29,7 +29,7 @@ namespace liqelligence::game
             return;
         }
 
-        core::context::get<core::draw::drawer>().draw(_priority, core::draw::sprite_unit(_rect, *_sprite, *_shader));
+        core::context::get<core::draw::drawer>().draw(_priority, core::draw::sprite_unit({ get_transform().get_pos(), _size }, *_sprite, *_shader));
     }
 
     core::draw::priority_t sprite_component::get_priority() const
@@ -42,33 +42,13 @@ namespace liqelligence::game
         _priority = value;
     }
 
-    vector2d sprite_component::get_pos() const
-    {
-        return _rect.get_pos();
-    }
-
-    void sprite_component::set_pos(vector2d value)
-    {
-        _rect.set_pos(value);
-    }
-
     vector2d sprite_component::get_size() const
     {
-        return _rect.get_size();
+        return _size;
     }
 
     void sprite_component::set_size(vector2d value)
     {
-        _rect.set_size(value);
-    }
-
-    rect2d sprite_component::get_rect() const
-    {
-        return _rect;
-    }
-
-    void sprite_component::set_rect(rect2d value)
-    {
-        _rect = value;
+        _size = value;
     }
 }

@@ -23,6 +23,18 @@ namespace liqelligence::core::component
 
     entity* component::find_entity() const
     {
-        return context::get<storage>().find<entity>(_entity);
+        return _entity ? context::get<storage>().find<entity>(_entity) : nullptr;
+    }
+
+    transform_proxy<const transform> component::get_transform() const
+    {
+        const auto* entity = find_entity();
+        return entity ? transform_proxy<const transform>(entity->get_transform()) : transform_proxy<const transform>{};
+    }
+
+    transform_proxy<transform> component::get_transform()
+    {
+        auto* entity = find_entity();
+        return entity ? transform_proxy<transform>(entity->get_transform()) : transform_proxy<transform>{};
     }
 }

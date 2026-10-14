@@ -24,16 +24,12 @@ namespace liqelligence::game
 
         core::draw::priority_t get_priority() const;
         void set_priority(core::draw::priority_t value);
-        vector2d get_pos() const;
-        void set_pos(vector2d value);
         vector2d get_size() const;
         void set_size(vector2d value);
-        rect2d get_rect() const;
-        void set_rect(rect2d value);
 
     private:
         core::draw::priority_t _priority = 0u;
-        rect2d _rect;
+        vector2d _size;
 
         std::shared_ptr<core::resource::sprite> _sprite;
         std::shared_ptr<core::resource::shader> _shader;
