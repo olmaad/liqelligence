@@ -57,6 +57,32 @@ namespace liqelligence::test
             REQUIRE(!storage.has(ref2));
         }
 
+        SECTION("Entity destroy")
+        {
+            auto& entity = storage.add<core::component::entity>();
+
+            const auto entity_ref = entity.get_ref();
+            const auto ref1 = entity.get_or_add<simple_component>().get_ref();
+
+            auto& destroyer = entity.get_or_add<entity_destoyer>();
+            const auto ref2 = destroyer.get_ref();
+
+            REQUIRE(storage.has(entity_ref));
+            REQUIRE(storage.has(ref1));
+            REQUIRE(storage.has(ref2));
+
+            destroyer.commit();
+            REQUIRE(storage.has(entity_ref));
+            REQUIRE(storage.has(ref1));
+            REQUIRE(storage.has(ref2));
+
+            core::context::update();
+
+            REQUIRE(!storage.has(entity_ref));
+            REQUIRE(!storage.has(ref1));
+            REQUIRE(!storage.has(ref2));
+        }
+
         SECTION("Recurse entity")
         {
             auto& root_entity = storage.add<core::component::entity>();

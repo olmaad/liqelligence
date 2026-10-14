@@ -3,6 +3,7 @@
 #include <core/component/interface/update_component.hpp>
 #include <core/component/interface/draw_component.hpp>
 #include <core/component/component.hpp>
+#include <core/component/entity.hpp>
 
 namespace liqelligence::test
 {
@@ -110,6 +111,18 @@ namespace liqelligence::test
 
     public:
         t_arg a;
+    };
+
+    class entity_destoyer : public core::component::component
+    {
+    public:
+        void commit()
+        {
+            if (auto* entity = find_entity()) {
+                entity->destroy();
+            }
+        }
+
     };
 
     class not_component_a
