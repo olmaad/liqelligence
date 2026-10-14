@@ -4,6 +4,13 @@
     "glew",
     "glfw3",
     "glm",
-    "lodepng"
+    "lodepng",
+    {
+      "name": "reflectcpp",
+      "default-features": false,
+      "features": [
+        "toml"
+      ]
+    }
   ]
 }

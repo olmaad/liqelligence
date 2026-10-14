@@ -32,6 +32,7 @@ target_include_directories(${TARGET_NAME}
         glm::glm
         glfw
         lodepng
+        reflectcpp::reflectcpp
 )
 
 target_link_libraries(${TARGET_NAME}
@@ -40,6 +41,7 @@ target_link_libraries(${TARGET_NAME}
         glm::glm
         glfw
         lodepng
+        reflectcpp::reflectcpp
 )
 
 target_precompile_headers(${TARGET_NAME}

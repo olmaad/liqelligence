@@ -14,6 +14,7 @@ find_package(glm CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW CONFIG REQUIRED)
 find_package(lodepng CONFIG REQUIRED)
+find_package(reflectcpp CONFIG REQUIRED)
 find_package(Catch2 3 CONFIG REQUIRED)
 
 # common files
