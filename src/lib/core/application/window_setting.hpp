@@ -8,5 +8,6 @@ namespace liqelligence::core::application
     {
         vector2d size;
         color fill_color;
+        bool sync = true;
     };
 }

@@ -26,7 +26,7 @@ namespace liqelligence::core::application
         }
 
         glfwMakeContextCurrent(_handle);
-        //glfwSwapInterval(0);
+        glfwSwapInterval(settings.sync ? 1 : 0);
 
         glfwSetWindowSizeCallback(_handle, &size_changed_callback);
 
