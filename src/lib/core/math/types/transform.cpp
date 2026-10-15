@@ -9,12 +9,12 @@ namespace liqelligence
     {
     }
 
-    vector2d transform_value::get_pos() const
+    fvector2d transform_value::get_pos() const
     {
         return _pos;
     }
 
-    void transform_value::set_pos(vector2d value)
+    void transform_value::set_pos(fvector2d value)
     {
         _pos = value;
     }

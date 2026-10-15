@@ -4,7 +4,9 @@
 #include <core/resource/types/shader.hpp>
 #include <core/glwrappers/vertex_buffer.hpp>
 #include <core/glwrappers/surface.hpp>
+#include <core/context/context.hpp>
 #include <core/draw/bindable.hpp>
+#include <core/draw/screen.hpp>
 
 namespace liqelligence::core::draw
 {
@@ -47,7 +49,7 @@ namespace liqelligence::core::draw
                 auto& unit = units.front();
 
                 scoped_bind binded_shader(unit.get_shader());
-                binded_shader->set_uniform("u_screen_size", vector2d(1280.f, 720.f));
+                context::get<screen>().fill_uniforms(*binded_shader);
 
                 scoped_bind binded_sprite(unit.get_sprite());
 

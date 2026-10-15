@@ -8,7 +8,7 @@ namespace liqelligence
     {
     public:
         virtual fvector2d get_pos() const = 0;
-        virtual void set_pos(vector2d value) = 0;
+        virtual void set_pos(fvector2d value) = 0;
         virtual fvector2d get_scale() const = 0;
         virtual void set_scale(fvector2d value) = 0;
         virtual float get_rotation() const = 0;
@@ -22,7 +22,7 @@ namespace liqelligence
         transform_value(fvector2d pos = { 0.f, 0.f }, fvector2d scale = { 1.f, 1.f }, float rotation = 0.f);
 
         fvector2d get_pos() const override;
-        void set_pos(vector2d value) override;
+        void set_pos(fvector2d value) override;
         fvector2d get_scale() const override;
         void set_scale(fvector2d value) override;
         float get_rotation() const override;
@@ -47,7 +47,7 @@ namespace liqelligence
         }
 
         fvector2d get_pos() const override { return _origin ? _origin->get_pos() : fvector2d{}; }
-        void set_pos(vector2d value) override { if constexpr (!std::is_const_v<t_transform>) { if (_origin) { _origin->set_pos(value); } } }
+        void set_pos(fvector2d value) override { if constexpr (!std::is_const_v<t_transform>) { if (_origin) { _origin->set_pos(value); } } }
         fvector2d get_scale() const override { return _origin ? _origin->get_scale() : fvector2d{}; }
         void set_scale(fvector2d value) override { if constexpr (!std::is_const_v<t_transform>) { if (_origin) { _origin->set_scale(value); } } }
         float get_rotation() const override { return _origin ? _origin->get_rotation() : 0.f; }

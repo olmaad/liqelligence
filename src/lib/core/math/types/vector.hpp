@@ -4,11 +4,13 @@
 
 namespace liqelligence
 {
-    using vector2d = glm::vec2;
+    using vector2d = glm::ivec2;
     using uvector2d = glm::uvec2;
     using fvector2d = glm::fvec2;
 
-    using vector3d = glm::vec3;
+    using vector3d = glm::ivec3;
     using uvector3d = glm::uvec3;
     using fvector3d = glm::fvec3;
+
+    using color = glm::fvec4;
 }

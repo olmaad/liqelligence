@@ -23,15 +23,10 @@ namespace liqelligence::core::draw
             _bindable.unbind();
         }
 
-        t_bindable* operator->()
-        {
-            return &_bindable;
-        }
-
-        const t_bindable* operator->() const
-        {
-            return &_bindable;
-        }
+        t_bindable& operator*() { return _bindable; }
+        const t_bindable& operator*() const { return _bindable; }
+        t_bindable* operator->() { return &_bindable; }
+        const t_bindable* operator->() const { return &_bindable; }
 
     private:
         t_bindable& _bindable;

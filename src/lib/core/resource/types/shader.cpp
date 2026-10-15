@@ -47,7 +47,7 @@ namespace liqelligence::core::resource
         }
     }
 
-    void shader::set_uniform(std::string_view name, vector2d value) const
+    void shader::set_uniform(std::string_view name, fvector2d value) const
     {
         const auto uniform = glGetUniformLocation(_handle, name.data());
         if (uniform >= 0) {

@@ -21,6 +21,10 @@ namespace liqelligence::core::draw
         void flush();
 
     private:
+        void set_stencil_state(bool state);
+        void set_blending_state(bool state);
+
+    private:
         std::unordered_map<priority_t, layer> _layers;
 
     };

@@ -24,7 +24,7 @@ namespace liqelligence::core::resource
         void bind() const;
         void unbind() const;
 
-        void set_uniform(std::string_view name, vector2d value) const;
+        void set_uniform(std::string_view name, fvector2d value) const;
 
     private:
         GLuint create_program(const std::vector<uint8_t>& fragment_code, const std::vector<uint8_t>& vertex_code);
