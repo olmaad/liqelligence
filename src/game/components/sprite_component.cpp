@@ -29,7 +29,7 @@ namespace liqelligence::game
             return;
         }
 
-        core::context::get<core::draw::drawer>().draw(_priority, core::draw::sprite_unit({ get_transform().get_pos(), _size }, *_sprite, *_shader));
+        core::context::get<core::draw::drawer>().draw(_priority, core::draw::sprite_unit(get_transform().get_pos(), _size, *_sprite, *_shader));
     }
 
     core::draw::priority_t sprite_component::get_priority() const

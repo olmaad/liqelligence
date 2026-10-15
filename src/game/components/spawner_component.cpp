@@ -24,13 +24,13 @@ namespace liqelligence::game
 
             auto& sprite = entity.get_or_add<game::sprite_component>("particle", "sprite_basic");
             sprite.set_priority(100u);
-            sprite.set_size(sprite.get_size() * vector2d { 4, 4 });
+            sprite.set_size(sprite.get_size() * vector2d { 8, 8 });
 
             auto& move = entity.get_or_add<game::move_component>();
-            move.set_speed({ 200.f, offsets.at(offsets.size() - _offset % offsets.size() - 1u) * 5.f });
-            move.set_acceleration({ -20.f, offsets.at(_offset % offsets.size()) });
+            move.set_speed({ offsets.at(_offset % offsets.size()) * 5.f, 300.f });
+            move.set_acceleration({ -offsets.at(_offset % offsets.size()) / 3.f, -50.f });
 
-            auto& timer = entity.get_or_add<game::lifetime_component>(10.f);
+            auto& timer = entity.get_or_add<game::lifetime_component>(12.f);
 
             _offset += 1u;
             if (_offset >= 1000u) {

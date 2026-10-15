@@ -20,6 +20,10 @@ namespace liqelligence::core::gl
         using underlying_type = float;
         static constexpr GLenum gl_value_type = GL_FLOAT;
     };
+    template<> struct vertex_buffer_types<fvector4d> {
+        using underlying_type = float;
+        static constexpr GLenum gl_value_type = GL_FLOAT;
+    };
 
     template<typename t_value, GLenum gl_type>
     class vertex_buffer

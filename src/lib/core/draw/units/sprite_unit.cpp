@@ -10,16 +10,22 @@
 
 namespace liqelligence::core::draw
 {
-    sprite_unit::sprite_unit(frect2d rect, const resource::sprite& sprite, const resource::shader& shader)
-        : _rect(rect)
+    sprite_unit::sprite_unit(fvector2d pos, vector2d size, const resource::sprite& sprite, const resource::shader& shader)
+        : _pos(pos)
+        , _size(size)
         , _sprite(sprite)
         , _shader(shader)
     {
     }
 
-    frect2d sprite_unit::get_rect() const
+    fvector2d sprite_unit::get_pos() const
     {
-        return _rect;
+        return _pos;
+    }
+
+    vector2d sprite_unit::get_size() const
+    {
+        return _size;
     }
 
     const resource::sprite& sprite_unit::get_sprite() const
@@ -56,13 +62,13 @@ namespace liqelligence::core::draw
                 gl::surface2d surface;
                 scoped_bind binded_surface(surface);
 
-                gl::vertex_buffer<frect2d, GL_ARRAY_BUFFER> rects_buffer(2u, 1u);
+                gl::vertex_buffer<fvector4d, GL_ARRAY_BUFFER> rects_buffer(2u, 1u);
                 scoped_bind binded_rects_buffer(rects_buffer);
 
                 const auto rects = units
                     | std::views::transform([](const auto& it)
                         {
-                            return it.get_rect();
+                            return fvector4d{ it.get_pos(), it.get_size() };
                         })
                     | std::ranges::to<std::vector>();
 

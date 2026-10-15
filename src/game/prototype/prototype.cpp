@@ -23,7 +23,7 @@ namespace
         auto& entity = storage.add<core::component::entity>();
 
         auto& spawner = entity.get_or_add<game::spawner_component>();
-        spawner.get_transform().set_pos({ 50.f, 200.f });
+        spawner.get_transform().set_pos({ 0.f, -500.f });
     }
 
     void update(float dt)
