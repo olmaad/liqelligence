@@ -16,7 +16,11 @@ namespace liqelligence::core::gl
         using underlying_type = float;
         static constexpr GLenum gl_value_type = GL_FLOAT;
     };
-    template<> struct vertex_buffer_types<frect2d> {
+    template<> struct vertex_buffer_types<fvector2d> {
+        using underlying_type = float;
+        static constexpr GLenum gl_value_type = GL_FLOAT;
+    };
+    template<> struct vertex_buffer_types<fvector3d> {
         using underlying_type = float;
         static constexpr GLenum gl_value_type = GL_FLOAT;
     };
@@ -29,9 +33,16 @@ namespace liqelligence::core::gl
     class vertex_buffer
     {
     public:
-        vertex_buffer(GLuint index = 0u, GLuint divisor = 0u)
-            : _index(index)
-            , _divisor(divisor)
+        struct attribute {
+            GLuint index = 0u;
+            GLuint divisor = 0u;
+            size_t dimension = sizeof(t_value) / sizeof(vertex_buffer_types<t_value>::underlying_type);
+            size_t offset = 0u;
+        };
+
+    public:
+        vertex_buffer(std::initializer_list<attribute> attributes)
+            : _attributes(attributes)
         {
             glGenBuffers(1u, &_handle);
         }
@@ -43,16 +54,14 @@ namespace liqelligence::core::gl
             }
         }
 
-        void set_index(GLuint value)
+        void add_attribute(attribute attribute)
         {
-            _index = value;
-            update_attributes();
+            _attributes.emplace_back(attribute);
         }
 
-        void set_divisor(GLuint value)
+        void clear_attributes()
         {
-            _divisor = value;
-            update_attributes();
+            _attributes.clear();
         }
 
         void bind() const
@@ -62,9 +71,10 @@ namespace liqelligence::core::gl
             }
 
             glBindBuffer(gl_type, _handle);
-            glEnableVertexAttribArray(_index);
 
-            update_attributes();
+            for (const auto& it : _attributes) {
+                enable_attribute(it);
+            }
         }
 
         void unbind() const
@@ -73,27 +83,38 @@ namespace liqelligence::core::gl
                 return;
             }
 
-            glDisableVertexAttribArray(_index);
+            for (const auto& it : _attributes) {
+                disable_attribute(it);
+            }
+
             glBindBuffer(gl_type, 0u);
         }
 
         void write_data(const std::vector<t_value>& data, GLenum usage) const
         {
+            if (!_handle) {
+                return;
+            }
+
             glBufferData(gl_type, data.size() * sizeof(t_value), data.data(), usage);
         }
 
     private:
-        void update_attributes() const
+        void enable_attribute(const attribute& attribute) const
         {
-            constexpr auto vertex_dimension = sizeof(t_value) / sizeof(vertex_buffer_types<t_value>::underlying_type);
-            glVertexAttribPointer(_index, vertex_dimension, vertex_buffer_types<t_value>::gl_value_type, GL_FALSE, sizeof(t_value), reinterpret_cast<const void*>(0u));
-            glVertexAttribDivisor(_index, _divisor);
+            glEnableVertexAttribArray(attribute.index);
+            glVertexAttribPointer(attribute.index, attribute.dimension, vertex_buffer_types<t_value>::gl_value_type, GL_FALSE, sizeof(t_value), reinterpret_cast<const void*>(attribute.offset * sizeof(vertex_buffer_types<t_value>::underlying_type)));
+            glVertexAttribDivisor(attribute.index, attribute.divisor);
+        }
+
+        void disable_attribute(const attribute& attribute) const
+        {
+            glDisableVertexAttribArray(attribute.index);
         }
 
     private:
         GLuint _handle = 0u;
-        GLuint _index = 0u;
-        GLuint _divisor = 0u;
+        std::vector<attribute> _attributes;
 
     };
 }

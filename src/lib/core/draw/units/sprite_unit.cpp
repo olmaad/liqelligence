@@ -63,7 +63,7 @@ namespace liqelligence::core::draw
                 gl::surface2d surface;
                 scoped_bind binded_surface(surface);
 
-                gl::vertex_buffer<fvector4d, GL_ARRAY_BUFFER> rects_buffer(2u, 1u);
+                gl::vertex_buffer<fvector4d, GL_ARRAY_BUFFER> rects_buffer({ {.index = 2u, .divisor = 1u } });
                 scoped_bind binded_rects_buffer(rects_buffer);
 
                 const auto rects = units

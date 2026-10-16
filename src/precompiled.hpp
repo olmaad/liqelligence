@@ -9,6 +9,7 @@
 #include <fstream>
 #include <functional>
 #include <generator>
+#include <initializer_list>
 #include <iterator>
 #include <list>
 #include <memory>

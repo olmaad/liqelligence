@@ -1,6 +1,7 @@
 #pragma once
 
 #include <gl/glew.h>
+#include <core/glwrappers/vertex_array.hpp>
 
 namespace liqelligence::core::gl
 {
@@ -8,20 +9,14 @@ namespace liqelligence::core::gl
     {
     public:
         surface2d();
-        ~surface2d();
 
         size_t get_vertex_count() const;
-        GLuint get_vertex_array_handle() const;
-        GLuint get_vertex_buffer_handle() const;
 
         void bind() const;
         void unbind() const;
 
-        operator bool() const;
-
     private:
-        GLuint _vertex_array_handle = 0u;
-        GLuint _vertex_buffer_handle = 0u;
+        vertex_array<fvector4d, GL_ARRAY_BUFFER> _array;
 
     };
 }

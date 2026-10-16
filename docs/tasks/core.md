@@ -6,9 +6,9 @@
 
 ### Draw
 
-- [ ] Common uniforms (screen size etc.)
-- [ ] Buffer with multiple attributes
-- [ ] Add buffer wrapper to surface
+- [x] Common uniforms (screen size etc.)
+- [x] Buffer with multiple attributes
+- [x] Add buffer wrapper to surface
 - [ ] Draw parameters
 - [x] Stencil and blending passes
 - [ ] Layer sets (game, ui, etc.)
