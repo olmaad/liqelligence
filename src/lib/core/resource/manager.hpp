@@ -20,6 +20,14 @@ namespace liqelligence::core::resource
         void load(load_mode mode);
         void unload();
 
+        template<std::derived_from<resource_loader> t_loader>
+        const t_loader* find_resource(const std::string& name)
+        {
+            return dynamic_cast<const t_loader*>(find_resource(name));
+        }
+
+        const resource_loader* find_resource(const std::string& name);
+
     private:
         void list();
 

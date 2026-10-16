@@ -13,8 +13,10 @@ namespace liqelligence::core::resource
         virtual bool valid() const = 0;
         virtual bool loaded() const = 0;
 
-        virtual void load() = 0;
-        virtual void unload() = 0;
+        virtual void load() const = 0;
+        virtual void unload() const = 0;
+
+        virtual std::vector<uint8_t> load_data() const = 0;
 
         std::string get_name() const;
         std::filesystem::path get_path() const;

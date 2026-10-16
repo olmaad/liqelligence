@@ -13,8 +13,10 @@ namespace liqelligence::core::resource
         bool valid() const override;
         bool loaded() const override;
 
-        void load() override;
-        void unload() override;
+        void load() const override;
+        void unload() const override;
+
+        std::vector<uint8_t> load_data() const override;
 
     private:
         struct paths

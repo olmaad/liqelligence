@@ -38,11 +38,21 @@ namespace liqelligence::core::resource
         }
     }
 
+    const resource_loader* manager::find_resource(const std::string& name)
+    {
+        auto it = _resources_by_name.find(name);
+        if (it == _resources_by_name.end()) {
+            return {};
+        }
+
+        return it->second.get();
+    }
+
     void manager::list()
     {
-        const std::unordered_map<std::string, std::function<std::shared_ptr<resource_loader>(std::filesystem::path)>> factories{
-            { "shader", [this](std::filesystem::path path) -> std::shared_ptr<resource_loader> { return std::make_shared<shader_resource_loader>(_loader, path); } },
-            { "sprite", [this](std::filesystem::path path) -> std::shared_ptr<resource_loader> { return std::make_shared<sprite_resource_loader>(_loader, path); } }
+        const auto loader_factories = std::unordered_map<std::string, std::function<std::shared_ptr<core::resource::resource_loader>(std::filesystem::path)>>{
+            { "shader", [this](std::filesystem::path path) -> std::shared_ptr<core::resource::resource_loader> { return std::make_shared<core::resource::shader_resource_loader>(_loader, path); } },
+            { "sprite", [this](std::filesystem::path path) -> std::shared_ptr<core::resource::resource_loader> { return std::make_shared<core::resource::sprite_resource_loader>(_loader, path); } }
         };
 
         std::filesystem::path resources_dir("resource");
@@ -55,8 +65,8 @@ namespace liqelligence::core::resource
                 continue;
             }
 
-            const auto& factory_it = factories.find(dir.path().filename().stem().string());
-            if (factory_it == factories.end()) {
+            const auto& factory_it = loader_factories.find(dir.path().filename().stem().string());
+            if (factory_it == loader_factories.end()) {
                 continue;
             }
 

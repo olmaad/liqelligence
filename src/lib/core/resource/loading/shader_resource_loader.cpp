@@ -19,7 +19,7 @@ namespace liqelligence::core::resource
         return shaders.has(get_name());
     }
 
-    void shader_resource_loader::load()
+    void shader_resource_loader::load() const
     {
         if (!_loader || !valid()) {
             return;
@@ -38,7 +38,7 @@ namespace liqelligence::core::resource
         shaders.add(get_name(), std::move(resource));
     }
 
-    void shader_resource_loader::unload()
+    void shader_resource_loader::unload() const
     {
         auto& shaders = context::get<library>().get<shader_library>();
         shaders.remove(get_name());
@@ -51,5 +51,10 @@ namespace liqelligence::core::resource
         result.vertex.replace_extension("vert");
 
         return result;
+    }
+
+    std::vector<uint8_t> shader_resource_loader::load_data() const
+    {
+        return {};
     }
 }

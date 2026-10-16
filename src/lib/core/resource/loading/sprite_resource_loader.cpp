@@ -20,10 +20,42 @@ namespace liqelligence::core::resource
         return sprites.has(get_name());
     }
 
-    void sprite_resource_loader::load()
+    void sprite_resource_loader::load() const
     {
         if (!_loader || !valid()) {
             return;
+        }
+
+        auto data = load_data_impl();
+        if (data.data.empty()) {
+            return;
+        }
+
+        auto resource = std::make_shared<sprite>(data.size, std::move(data.data));
+        if (!resource->valid()) {
+            return;
+        }
+
+        auto& sprites = context::get<library>().get<sprite_library>();
+        sprites.add(get_name(), std::move(resource));
+    }
+
+    void sprite_resource_loader::unload() const
+    {
+        auto& sprites = context::get<library>().get<sprite_library>();
+        sprites.remove(get_name());
+    }
+
+    std::vector<uint8_t> sprite_resource_loader::load_data() const
+    {
+        auto result = load_data_impl();
+        return result.data;
+    }
+
+    sprite_resource_loader::load_result sprite_resource_loader::load_data_impl() const
+    {
+        if (!_loader || !valid()) {
+            return {};
         }
 
         auto data = _loader->read_data(_path);
@@ -39,21 +71,9 @@ namespace liqelligence::core::resource
         const auto result = lodepng::decode(decoded, size.x, size.y, state, data);
         if (result) {
             //auto error = lodepng_error_text(result);
-            return;
+            return {};
         }
 
-        auto resource = std::make_shared<sprite>(size, std::move(decoded));
-        if (!resource->valid()) {
-            return;
-        }
-
-        auto& sprites = context::get<library>().get<sprite_library>();
-        sprites.add(get_name(), std::move(resource));
-    }
-
-    void sprite_resource_loader::unload()
-    {
-        auto& sprites = context::get<library>().get<sprite_library>();
-        sprites.remove(get_name());
+        return { .size = size, .data = std::move(decoded) };
     }
 }

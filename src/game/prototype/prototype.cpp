@@ -2,8 +2,12 @@
 
 #include <gl/glew.h>
 #include <components/sets.hpp>
+#include <core/application/window.hpp>
 #include <core/component/storage.hpp>
 #include <core/component/entity.hpp>
+#include <core/resource/loading/sprite_resource_loader.hpp>
+#include <core/resource/library/sprite_library.hpp>
+#include <core/resource/types/sprite.hpp>
 #include <core/resource/manager.hpp>
 #include <core/draw/screen.hpp>
 #include <core/draw/drawer.hpp>
@@ -13,10 +17,15 @@ namespace
 {
     using namespace liqelligence;
 
-    void setup(core::application::window&)
+    void setup(core::application::window& window)
     {
         auto& resources = core::context::get<core::resource::manager>();
         resources.load(core::resource::manager::load_mode::all);
+
+        if (const auto* icon = resources.find_resource<core::resource::sprite_resource_loader>("icon")) {
+            const auto data = icon->load_data_impl();
+            window.set_icon(vector2d{ data.size }, data.data);
+        }
 
         auto& storage = core::context::get<core::component::storage>();
 
