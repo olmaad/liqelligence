@@ -12,7 +12,7 @@ void main()
 {
     uv = a_uv;
 
-    vec2 pos_pixel = a_rect.xy + a_pos * a_rect.zw;
+    vec2 pos_pixel = a_rect.xy + a_rect.zw * vec2(1.0, -1.0) * (a_pos - vec2(0.5, 0.5));
     vec2 pos_normalized = pos_pixel / u_screen_size;
 
     gl_Position = vec4(pos_normalized, 0.0, 1.0);
