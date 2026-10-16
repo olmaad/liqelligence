@@ -10,7 +10,7 @@
 - [ ] Buffer with multiple attributes
 - [ ] Add buffer wrapper to surface
 - [ ] Draw parameters
-- [ ] Stencil and blending passes
+- [x] Stencil and blending passes
 - [ ] Layer sets (game, ui, etc.)
 - [ ] Applying entity transform to sprites
 

@@ -24,6 +24,7 @@ namespace liqelligence::core::resource
         void bind() const;
         void unbind() const;
 
+        void set_uniform(std::string_view name, bool value) const;
         void set_uniform(std::string_view name, fvector2d value) const;
 
     private:

@@ -1,23 +1,25 @@
 #pragma once
 
+#include <core/draw/settings.hpp>
+
 namespace liqelligence::core::draw
 {
     class action
     {
     public:
-        virtual void apply() const = 0;
+        virtual void apply(settings) const = 0;
 
     };
 
     class lambda_action : public action
     {
     public:
-        lambda_action(std::function<void()> function);
+        lambda_action(std::function<void(settings)> function);
 
-        void apply() const override;
+        void apply(settings settings) const override;
 
     private:
-        std::function<void()> _function;
+        std::function<void(settings)> _function;
 
     };
 }

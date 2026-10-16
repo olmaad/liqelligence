@@ -17,26 +17,38 @@ namespace liqelligence::core::draw
         glStencilMask(0xFF);
         glStencilFunc(GL_EQUAL, 0, 0xFF);
         glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-
-        set_stencil_state(false);
-        set_blending_state(true);
     }
 
-    void drawer::flush()
+    void drawer::flush(settings settings)
     {
+        setup_pass(settings.pass_type);
+
         auto layers_sorted = _layers
             | std::views::transform([](const auto& it) { return std::make_pair(it.first, &it.second); })
             | std::ranges::to<std::vector>();
 
-        std::ranges::stable_sort(layers_sorted, [](const auto& left, const auto& right) { return left.first < right.first; });
+        std::ranges::stable_sort(layers_sorted, [type = settings.pass_type](const auto& left, const auto& right)
+            {
+                return type == pass::blend
+                    ? left.first < right.first
+                    : left.first > right.first;
+            });
 
         for (const auto& [_, layer] : layers_sorted) {
             for (const auto& action : layer->flush()) {
-                action.apply();
+                action.apply(settings);
             }
         }
 
         _layers.clear();
+
+        glClear(GL_STENCIL_BUFFER_BIT);
+    }
+
+    void drawer::setup_pass(pass type)
+    {
+        set_stencil_state(type == pass::stencil);
+        set_blending_state(type == pass::blend);
     }
 
     void drawer::set_stencil_state(bool state)

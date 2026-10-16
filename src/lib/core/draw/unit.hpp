@@ -17,7 +17,7 @@ namespace liqelligence::core::draw
 
         virtual hash_t get_hash() const = 0;
 
-        void apply() const override;
+        void apply(settings) const override;
 
     };
 

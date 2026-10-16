@@ -50,11 +50,12 @@ namespace liqelligence::core::draw
             co_return;
         }
 
-        co_yield lambda_action([&units]()
+        co_yield lambda_action([&units](settings settings)
             {
                 auto& unit = units.front();
 
                 scoped_bind binded_shader(unit.get_shader());
+                binded_shader->set_uniform("u_discard", settings.pass_type == pass::stencil);
                 context::get<screen>().fill_uniforms(*binded_shader);
 
                 scoped_bind binded_sprite(unit.get_sprite());

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/context/item.hpp>
+#include <core/draw/settings.hpp>
 #include <core/draw/types.hpp>
 #include <core/draw/layer.hpp>
 
@@ -18,9 +19,10 @@ namespace liqelligence::core::draw
             layer.draw(std::forward<t_unit>(unit));
         }
 
-        void flush();
+        void flush(settings settings);
 
     private:
+        void setup_pass(pass type);
         void set_stencil_state(bool state);
         void set_blending_state(bool state);
 

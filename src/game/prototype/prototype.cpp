@@ -52,7 +52,7 @@ namespace
             it.draw();
         }
 
-        core::context::get<core::draw::drawer>().flush();
+        core::context::get<core::draw::drawer>().flush({ .pass_type = core::draw::pass::stencil });
     }
 
     void on_size_changed(vector2d size)

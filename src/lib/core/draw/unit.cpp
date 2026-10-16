@@ -7,7 +7,7 @@ namespace liqelligence::core::draw
         return unit_description(typeid(*this), get_hash());
     }
 
-    void unit::apply() const
+    void unit::apply(settings) const
     {
     }
 }

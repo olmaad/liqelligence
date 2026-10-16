@@ -47,11 +47,21 @@ namespace liqelligence::core::resource
         }
     }
 
+    void shader::set_uniform(std::string_view name, bool value) const
+    {
+        if (_handle) {
+            if (const auto uniform = glGetUniformLocation(_handle, name.data()); uniform >= 0) {
+                glUniform1i(uniform, static_cast<int>(value));
+            }
+        }
+    }
+
     void shader::set_uniform(std::string_view name, fvector2d value) const
     {
-        const auto uniform = glGetUniformLocation(_handle, name.data());
-        if (uniform >= 0) {
-            glUniform2f(uniform, value.x, value.y);
+        if (_handle) {
+            if (const auto uniform = glGetUniformLocation(_handle, name.data()); uniform >= 0) {
+                glUniform2f(uniform, value.x, value.y);
+            }
         }
     }
 
